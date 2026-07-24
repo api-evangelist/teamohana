@@ -1,0 +1,1688 @@
+openapi: 3.1.0
+info:
+  title: TeamOhana Public Discovery Headcount API
+  description: 'Refer to the [API FAQ](/faq) for more details on the usage.
+
+
+    Note: API keys for the SCIM API and the Headcount API are different. Please make sure you are using the right keys.'
+  version: '1.0'
+  termsOfService: https://www.teamohana.com/terms-and-conditions
+security:
+- Authorization: []
+tags:
+- name: Headcount
+paths:
+  /{domain}/v1/headcount:
+    get:
+      parameters:
+      - name: domain
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: plan-id
+        in: query
+        description: Filter by hiring plan UUID. Get IDs from GET /v1/plans.
+        required: false
+        schema:
+          oneOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Filter by hiring plan UUID. Get IDs from GET /v1/plans.
+          title: ohana.common.schemas.public-api.headcount-filters/plan-id
+      - name: hc-status
+        in: query
+        description: 'Filter by headcount status code. Repeatable for OR. Valid values: in-approval, approved, denied, closed, archived.'
+        required: false
+        schema:
+          anyOf:
+          - {}
+          - type: array
+            items: {}
+          description: 'Filter by headcount status code. Repeatable for OR. Valid values: in-approval, approved, denied, closed, archived.'
+          title: ohana.common.schemas.public-api.headcount-filters/hc-status
+      - name: hc-hiring-status
+        in: query
+        description: 'Filter by hiring status code. Repeatable for OR. Valid values: not-started, ready-to-hire, in-progress, offer-sent, hired.'
+        required: false
+        schema:
+          anyOf:
+          - {}
+          - type: array
+            items: {}
+          description: 'Filter by hiring status code. Repeatable for OR. Valid values: not-started, ready-to-hire, in-progress, offer-sent, hired.'
+          title: ohana.common.schemas.public-api.headcount-filters/hc-hiring-status
+      - name: department-id
+        in: query
+        description: Filter by department. Pass the id returned by GET /v1/departments (a division-department UUID that uniquely identifies a department within a division).
+        required: false
+        schema:
+          oneOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Filter by department. Pass the id returned by GET /v1/departments (a division-department UUID that uniquely identifies a department within a division).
+          title: ohana.common.schemas.public-api.headcount-filters/department-id
+      - name: division-id
+        in: query
+        description: Filter by division UUID. Get IDs from GET /v1/divisions. When combined with department-id, returns the union.
+        required: false
+        schema:
+          oneOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Filter by division UUID. Get IDs from GET /v1/divisions. When combined with department-id, returns the union.
+          title: ohana.common.schemas.public-api.headcount-filters/division-id
+      responses:
+        '401':
+          description: Request does not contain valid credentials.
+          content:
+            application/json:
+              schema:
+                type: string
+                title: ohana.common.schemas.public-api.common/message
+            text/csv:
+              schema:
+                type: string
+                title: ohana.common.schemas.public-api.common/message
+        '500':
+          description: Something went wrong at TeamOhana. Please contact support.
+          content:
+            application/json:
+              schema:
+                title: ohana.common.schemas.public-api.common/unhandled
+            text/csv:
+              schema:
+                title: ohana.common.schemas.public-api.common/unhandled
+        '200':
+          description: A list of headcounts as either a JSON array or a CSV file.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    termination-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Termination date of the employee if exists.
+                      title: ohana.common.schemas.public-api.headcount/termination-date
+                      example: 08-26-2024
+                    hiring-status:
+                      oneOf:
+                      - enum:
+                        - Offer Sent
+                        - Hired
+                        - Ready to hire
+                        - Not started
+                        - In progress
+                        type: string
+                      - type: 'null'
+                      description: Current status of the headcount.
+                      title: ohana.common.schemas.public-api.headcount/hiring-status
+                      example: Hired
+                    employee-type:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Type of the employee.
+                      title: ohana.common.schemas.public-api.headcount/employee-type
+                      example: Full Time
+                    department:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Department of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/department
+                      example: Sales
+                    headcount-approved-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Approved date of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/headcount-approved-date
+                      example: 08-26-2024
+                    target-variable:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target variable of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-variable
+                      example: '1234.0'
+                    target-equity-currency:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Equity currency of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-equity-currency
+                      example: USD
+                    priority:
+                      oneOf:
+                      - enum:
+                        - High
+                        - Normal
+                        - Critical
+                        - Low
+                        type: string
+                      - type: 'null'
+                      description: Priority of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/priority
+                      example: Normal
+                    target-equity:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target equity of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-equity
+                      example: 4321.0
+                    custom-fields:
+                      type: object
+                      additionalProperties:
+                        type: object
+                        additionalProperties: {}
+                        title: ohana.common.schemas.public-api.headcount/name-value
+                      description: All custom fields associated with this Headcount.
+                      title: ohana.common.schemas.public-api.headcount/custom-fields
+                      example:
+                        HEADCOUNT:
+                          Field 1: Value 1
+                          Field 2: null
+                          Field 3: 123
+                        EMPLOYEE:
+                          Field 1: Value 1
+                          Field 2: Value 2
+                          Field 3: 321
+                        OFFER:
+                          Field 1: null
+                          Field 2: null
+                          Field 3: Value 3
+                    opening-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Opening ID of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/opening-id
+                      example: 1234-123
+                    budget-equity:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Budget equity of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/budget-equity
+                      example: 44000.0
+                    headcount-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Headcount ID exists in TeamOhana.
+                      title: ohana.common.schemas.public-api.headcount/headcount-id
+                      example: ORG-123
+                    sourcers:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Names of the sourcers split by `;`
+                      title: ohana.common.schemas.public-api.headcount/sourcers
+                      example: Stephen Marshall ; Mark Henry
+                    actual-bonus:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Actual bonus of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-bonus
+                      example: 8484.0
+                    budget-salary:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Budget salary of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/budget-salary
+                      example: 205000.0
+                    reporting-manager:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Name of the reporting manager.
+                      title: ohana.common.schemas.public-api.headcount/reporting-manager
+                      example: Stephen Marshall
+                    termination-type:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Termination type of the employee if exists.
+                      title: ohana.common.schemas.public-api.headcount/termination-type
+                      example: Initiative Name
+                    recruiters:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Names of the recruiters split by `;`
+                      title: ohana.common.schemas.public-api.headcount/recruiters
+                      example: Stephen Marshall ; Mark Henry
+                    annualized-budget-salary:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Budget salary calculated annually.
+                      title: ohana.common.schemas.public-api.headcount/annualized-budget-salary
+                      example: 2460000.0
+                    target-bonus-perc:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target bonus-perc of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-bonus-perc
+                      example: 10
+                    actual-equity:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Actual equity of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-equity
+                      example: 4321.0
+                    actual-variable:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Actual variable of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-variable
+                      example: 1324.0
+                    compensation-change-reason:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Docker specific field
+                      title: ohana.common.schemas.public-api.headcount/compensation-change-reason
+                      example: ABC
+                    budget-job-level:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Budget job level of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/budget-job-level
+                      example: L1
+                    headcount-type:
+                      oneOf:
+                      - enum:
+                        - Backfill
+                        - New hire
+                        type: string
+                      - type: 'null'
+                      description: Type of the Headcount - either New hire or Backfill.
+                      title: ohana.common.schemas.public-api.headcount/headcount-type
+                      example: New hire
+                    id:
+                      oneOf:
+                      - type: string
+                        format: uuid
+                      - type: 'null'
+                      description: headcount UUID.
+                      title: ohana.common.schemas.public-api.headcount/id
+                      example: uuid
+                    archived-justification:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Justification of archival if the Headcount is archived.
+                      title: ohana.common.schemas.public-api.headcount/archived-justification
+                      example: Not required
+                    archived-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Archival date of the Headcount if this is archived.
+                      title: ohana.common.schemas.public-api.headcount/archived-date
+                      example: 08-26-2024
+                    headcount-display-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Headcount ID
+                      title: ohana.common.schemas.public-api.headcount/headcount-display-id
+                      example: ABC-123
+                    backfill-employee-email:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Email of the backfill employee if this Headcount is a backfill.
+                      title: ohana.common.schemas.public-api.headcount/backfill-employee-email
+                      example: ramzi.ali@example.com
+                    headcount-denied-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Denied date of the Headcount if this is denied.
+                      title: ohana.common.schemas.public-api.headcount/headcount-denied-date
+                      example: 08-26-2024
+                    headcount-is-private:
+                      oneOf:
+                      - type: boolean
+                      - type: 'null'
+                      description: Whether the Headcount is private.
+                      title: ohana.common.schemas.public-api.headcount/headcount-is-private
+                      example: true
+                    actual-bonus-perc:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Actual bonus-perc of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-bonus-perc
+                      example: 10
+                    target-start-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Target start date of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-start-date
+                      example: 08-26-2024
+                    budget-start-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Budget start date of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/budget-start-date
+                      example: 08-26-2024
+                    is-current:
+                      oneOf:
+                      - type: boolean
+                      - type: 'null'
+                      description: Whether the Headcount is included in current hiring plan or not.
+                      title: ohana.common.schemas.public-api.headcount/is-current
+                      example: true
+                    division:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Division of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/division
+                      example: Engineering
+                    employee-email:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Employee email
+                      title: ohana.common.schemas.public-api.headcount/employee-email
+                      example: a@b.com
+                    budget-pay-rate:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Budget pay rate of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/budget-pay-rate
+                      example: YEAR
+                    hris-employee-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: HRIS Employee ID
+                      title: ohana.common.schemas.public-api.headcount/hris-employee-id
+                      example: '1234'
+                    job-level:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Job level of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/job-level
+                      example: L2
+                    job-name:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Job name of the Headcount - concatenation of ATS job-id and job name.
+                      title: ohana.common.schemas.public-api.headcount/job-name
+                      example: GH-1234 - Sales Director, Generative AI
+                    denied-justification:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Justification of denial if the Headcount is denied.
+                      title: ohana.common.schemas.public-api.headcount/denied-justification
+                      example: Not Suitable
+                    hiring-plan-active:
+                      oneOf:
+                      - type: boolean
+                      - type: 'null'
+                      description: Whether the Headcount is included in current hiring plan or not.
+                      title: ohana.common.schemas.public-api.headcount/hiring-plan-active
+                      example: true
+                    actual-salary:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Actual salary of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-salary
+                      example: '2345.0'
+                    location:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Location of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/location
+                      example: San francisco, USA
+                    employee-id:
+                      oneOf:
+                      - type: string
+                        format: uuid
+                      - type: 'null'
+                      description: Employee ID.
+                      title: ohana.common.schemas.public-api.headcount/employee-id
+                      example: uuid
+                    reporting-manager-email:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Email of the reporting manager.
+                      title: ohana.common.schemas.public-api.headcount/reporting-manager-email
+                      example: stephen.marshall@example.com
+                    last-updated:
+                      oneOf:
+                      - type: string
+                        format: date-time
+                      - type: 'null'
+                      description: Last update date of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/last-updated
+                      example: '2024-07-15T00:00:00Z'
+                    headcount-status:
+                      oneOf:
+                      - enum:
+                        - Filled
+                        - Approved
+                        - Denied
+                        - In Approval
+                        - Archived
+                        type: string
+                      - type: 'null'
+                      description: Current status of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/headcount-status
+                      example: Approved
+                    actual-equity-currency:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Actual Equity currency of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-equity-currency
+                      example: USD
+                    status:
+                      oneOf:
+                      - enum:
+                        - Filled
+                        - Approved
+                        - Denied
+                        - In Approval
+                        - Archived
+                        type: string
+                      - type: 'null'
+                      description: Current status of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/status
+                      example: Approved
+                    actual-start-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Actual start date of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-start-date
+                      example: 08-26-2024
+                    target-open-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Target open date of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-open-date
+                      example: 08-26-2024
+                    pay-rate:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Pay rate of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/pay-rate
+                      example: YEAR
+                    target-bonus:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target bonus of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-bonus
+                      example: 8484.0
+                    budget-currency:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Budget currency of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/budget-currency
+                      example: USD
+                    job-title:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Job title of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/job-title
+                      example: Software Engineer
+                    future-termination:
+                      oneOf:
+                      - type: boolean
+                      - type: 'null'
+                      description: Is the employee termination in future
+                      title: ohana.common.schemas.public-api.headcount/future-termination
+                      example: true
+                    backfill-employee:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Name of the backfill employee for this Headcount.
+                      title: ohana.common.schemas.public-api.headcount/backfill-employee
+                      example: Ramzi Ali
+                    annualized-actual-salary:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Actual salary calculated annually.
+                      title: ohana.common.schemas.public-api.headcount/annualized-actual-salary
+                      example: 28140.0
+                    backfill-employee-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Employee ID of backfilled employee for the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/backfill-employee-id
+                      example: '1234'
+                    track-management:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Docker specific field
+                      title: ohana.common.schemas.public-api.headcount/track-management
+                      example: ABC
+                    hris-employee-remote-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: HRIS Remote Employee ID
+                      title: ohana.common.schemas.public-api.headcount/hris-employee-remote-id
+                      example: '1234'
+                    target-salary:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target salary of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-salary
+                      example: 84840.0
+                    target-currency:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Target currency of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-currency
+                      example: USD
+                    hiring-plan:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Name of the hiring plan
+                      title: ohana.common.schemas.public-api.headcount/hiring-plan
+                      example: FY Hiring plan 2025
+                    state:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Docker specific field
+                      title: ohana.common.schemas.public-api.headcount/state
+                      example: S
+                    annualized-target-salary:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target salary calculated annually for this Headcount.
+                      title: ohana.common.schemas.public-api.headcount/annualized-target-salary
+                      example: 1018080.0
+                    employee-name:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Name of the employee.
+                      title: ohana.common.schemas.public-api.headcount/employee-name
+                      example: Terry Peters
+                    offer-sent-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Offer sent date for the headcount if exists.
+                      title: ohana.common.schemas.public-api.headcount/offer-sent-date
+                      example: 08-26-2024
+                    actual-currency:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Actual currency of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-currency
+                      example: USD
+                    budget-variable:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Budget variable of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/budget-variable
+                      example: 105000.0
+                    pay-rate-multiplier:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Pay rate multiplier of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/pay-rate-multiplier
+                      example: 2080
+                    termination-reconciled:
+                      oneOf:
+                      - type: boolean
+                      - type: 'null'
+                      description: Was the employee termination reconciled
+                      title: ohana.common.schemas.public-api.headcount/termination-reconciled
+                      example: true
+                    job-role:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Job role of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/job-role
+                      example: Marketing
+                    headcount-url:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: URL of the Headcount details in TeamOhana.
+                      title: ohana.common.schemas.public-api.headcount/headcount-url
+                      example: https://app.teamohana.us/headcount-details/1949a6b5-eaeb-4ee3-8d3d-9c597b04c918
+                    reporting-manager-hris-employee-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: HRIS Employee ID of the Reporting manager of the employee
+                      title: ohana.common.schemas.public-api.headcount/reporting-manager-hris-employee-id
+                      example: '1234'
+                    offer-accept-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Offer acceptance date for the headcount if exists.
+                      title: ohana.common.schemas.public-api.headcount/offer-accept-date
+                      example: 08-26-2024
+                    team:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Headcount's team name.
+                      title: ohana.common.schemas.public-api.headcount/team
+                      example: Sales
+                    approval-requested-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Date of approval for this Headcount .
+                      title: ohana.common.schemas.public-api.headcount/approval-requested-date
+                      example: 08-26-2024
+                    initiative:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Initiative name of the Headcount if exists.
+                      title: ohana.common.schemas.public-api.headcount/initiative
+                      example: Initiative Name
+                    job-function:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Docker specific field
+                      title: ohana.common.schemas.public-api.headcount/job-function
+                      example: ABC
+                    target-hire-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Target hire date of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-hire-date
+                      example: 08-26-2024
+                    target-pay-rate:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Target pay rate of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-pay-rate
+                      example: YEAR
+                    employment-end-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Employment end date for the headcount if exists.
+                      title: ohana.common.schemas.public-api.headcount/employment-end-date
+                      example: 08-26-2024
+                    teamohana-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Teamohana ID
+                      title: ohana.common.schemas.public-api.headcount/teamohana-id
+                      example: TO-1234
+                    coordinators:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Names of the coordinators split by `;`
+                      title: ohana.common.schemas.public-api.headcount/coordinators
+                      example: Stephen Marshall ; Mark Henry
+                    justification:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Headcount Justification
+                      title: ohana.common.schemas.public-api.headcount/justification
+                      example: Need additional resource
+                    termination-regrettable:
+                      oneOf:
+                      - type: boolean
+                      - type: 'null'
+                      description: Was the employee termination regrettable
+                      title: ohana.common.schemas.public-api.headcount/termination-regrettable
+                      example: true
+                  required:
+                  - employee-name
+                  - job-title
+                  - division
+                  - department
+                  - job-level
+                  - location
+                  - employee-type
+                  - reporting-manager
+                  - target-start-date
+                  title: ohana.common.schemas.public-api.headcount/headcount-or-employee
+                title: ohana.common.schemas.public-api.headcount/api-response
+            text/csv:
+              schema:
+                type: string
+      tags:
+      - Headcount
+      summary: Fetch all the headcount in TeamOhana.
+      description: Get a list of all valid headcount that exists in TeamOhana. Supports optional filtering by plan, status, hiring status, department, and division. Response format is selected via the Accept header (`application/json` default, `text/csv` for a downloadable CSV). Refer to the [Headcount Data API FAQ](/faq/index.html#headcount-data-api) for more details.
+    post:
+      parameters:
+      - name: domain
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: plan-id
+        in: query
+        description: Filter by hiring plan UUID. Get IDs from GET /v1/plans.
+        required: false
+        schema:
+          oneOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Filter by hiring plan UUID. Get IDs from GET /v1/plans.
+          title: ohana.common.schemas.public-api.headcount-filters/plan-id
+      - name: hc-status
+        in: query
+        description: 'Filter by headcount status code. Repeatable for OR. Valid values: in-approval, approved, denied, closed, archived.'
+        required: false
+        schema:
+          anyOf:
+          - {}
+          - type: array
+            items: {}
+          description: 'Filter by headcount status code. Repeatable for OR. Valid values: in-approval, approved, denied, closed, archived.'
+          title: ohana.common.schemas.public-api.headcount-filters/hc-status
+      - name: hc-hiring-status
+        in: query
+        description: 'Filter by hiring status code. Repeatable for OR. Valid values: not-started, ready-to-hire, in-progress, offer-sent, hired.'
+        required: false
+        schema:
+          anyOf:
+          - {}
+          - type: array
+            items: {}
+          description: 'Filter by hiring status code. Repeatable for OR. Valid values: not-started, ready-to-hire, in-progress, offer-sent, hired.'
+          title: ohana.common.schemas.public-api.headcount-filters/hc-hiring-status
+      - name: department-id
+        in: query
+        description: Filter by department. Pass the id returned by GET /v1/departments (a division-department UUID that uniquely identifies a department within a division).
+        required: false
+        schema:
+          oneOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Filter by department. Pass the id returned by GET /v1/departments (a division-department UUID that uniquely identifies a department within a division).
+          title: ohana.common.schemas.public-api.headcount-filters/department-id
+      - name: division-id
+        in: query
+        description: Filter by division UUID. Get IDs from GET /v1/divisions. When combined with department-id, returns the union.
+        required: false
+        schema:
+          oneOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Filter by division UUID. Get IDs from GET /v1/divisions. When combined with department-id, returns the union.
+          title: ohana.common.schemas.public-api.headcount-filters/division-id
+      responses:
+        '401':
+          description: Request does not contain valid credentials.
+          content:
+            application/json:
+              schema:
+                type: string
+                title: ohana.common.schemas.public-api.common/message
+        '500':
+          description: Something went wrong at TeamOhana. Please contact support.
+          content:
+            application/json:
+              schema:
+                title: ohana.common.schemas.public-api.common/unhandled
+        '200':
+          description: A list response containing all the headcount.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    termination-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Termination date of the employee if exists.
+                      title: ohana.common.schemas.public-api.headcount/termination-date
+                      example: 08-26-2024
+                    hiring-status:
+                      oneOf:
+                      - enum:
+                        - Offer Sent
+                        - Hired
+                        - Ready to hire
+                        - Not started
+                        - In progress
+                        type: string
+                      - type: 'null'
+                      description: Current status of the headcount.
+                      title: ohana.common.schemas.public-api.headcount/hiring-status
+                      example: Hired
+                    employee-type:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Type of the employee.
+                      title: ohana.common.schemas.public-api.headcount/employee-type
+                      example: Full Time
+                    department:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Department of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/department
+                      example: Sales
+                    headcount-approved-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Approved date of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/headcount-approved-date
+                      example: 08-26-2024
+                    target-variable:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target variable of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-variable
+                      example: '1234.0'
+                    target-equity-currency:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Equity currency of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-equity-currency
+                      example: USD
+                    priority:
+                      oneOf:
+                      - enum:
+                        - High
+                        - Normal
+                        - Critical
+                        - Low
+                        type: string
+                      - type: 'null'
+                      description: Priority of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/priority
+                      example: Normal
+                    target-equity:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target equity of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-equity
+                      example: 4321.0
+                    custom-fields:
+                      type: object
+                      additionalProperties:
+                        type: object
+                        additionalProperties: {}
+                        title: ohana.common.schemas.public-api.headcount/name-value
+                      description: All custom fields associated with this Headcount.
+                      title: ohana.common.schemas.public-api.headcount/custom-fields
+                      example:
+                        HEADCOUNT:
+                          Field 1: Value 1
+                          Field 2: null
+                          Field 3: 123
+                        EMPLOYEE:
+                          Field 1: Value 1
+                          Field 2: Value 2
+                          Field 3: 321
+                        OFFER:
+                          Field 1: null
+                          Field 2: null
+                          Field 3: Value 3
+                    opening-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Opening ID of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/opening-id
+                      example: 1234-123
+                    budget-equity:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Budget equity of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/budget-equity
+                      example: 44000.0
+                    headcount-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Headcount ID exists in TeamOhana.
+                      title: ohana.common.schemas.public-api.headcount/headcount-id
+                      example: ORG-123
+                    sourcers:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Names of the sourcers split by `;`
+                      title: ohana.common.schemas.public-api.headcount/sourcers
+                      example: Stephen Marshall ; Mark Henry
+                    actual-bonus:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Actual bonus of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-bonus
+                      example: 8484.0
+                    budget-salary:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Budget salary of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/budget-salary
+                      example: 205000.0
+                    reporting-manager:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Name of the reporting manager.
+                      title: ohana.common.schemas.public-api.headcount/reporting-manager
+                      example: Stephen Marshall
+                    termination-type:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Termination type of the employee if exists.
+                      title: ohana.common.schemas.public-api.headcount/termination-type
+                      example: Initiative Name
+                    recruiters:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Names of the recruiters split by `;`
+                      title: ohana.common.schemas.public-api.headcount/recruiters
+                      example: Stephen Marshall ; Mark Henry
+                    annualized-budget-salary:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Budget salary calculated annually.
+                      title: ohana.common.schemas.public-api.headcount/annualized-budget-salary
+                      example: 2460000.0
+                    target-bonus-perc:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target bonus-perc of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-bonus-perc
+                      example: 10
+                    actual-equity:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Actual equity of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-equity
+                      example: 4321.0
+                    actual-variable:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Actual variable of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-variable
+                      example: 1324.0
+                    compensation-change-reason:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Docker specific field
+                      title: ohana.common.schemas.public-api.headcount/compensation-change-reason
+                      example: ABC
+                    budget-job-level:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Budget job level of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/budget-job-level
+                      example: L1
+                    headcount-type:
+                      oneOf:
+                      - enum:
+                        - Backfill
+                        - New hire
+                        type: string
+                      - type: 'null'
+                      description: Type of the Headcount - either New hire or Backfill.
+                      title: ohana.common.schemas.public-api.headcount/headcount-type
+                      example: New hire
+                    id:
+                      oneOf:
+                      - type: string
+                        format: uuid
+                      - type: 'null'
+                      description: headcount UUID.
+                      title: ohana.common.schemas.public-api.headcount/id
+                      example: uuid
+                    archived-justification:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Justification of archival if the Headcount is archived.
+                      title: ohana.common.schemas.public-api.headcount/archived-justification
+                      example: Not required
+                    archived-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Archival date of the Headcount if this is archived.
+                      title: ohana.common.schemas.public-api.headcount/archived-date
+                      example: 08-26-2024
+                    headcount-display-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Headcount ID
+                      title: ohana.common.schemas.public-api.headcount/headcount-display-id
+                      example: ABC-123
+                    backfill-employee-email:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Email of the backfill employee if this Headcount is a backfill.
+                      title: ohana.common.schemas.public-api.headcount/backfill-employee-email
+                      example: ramzi.ali@example.com
+                    headcount-denied-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Denied date of the Headcount if this is denied.
+                      title: ohana.common.schemas.public-api.headcount/headcount-denied-date
+                      example: 08-26-2024
+                    headcount-is-private:
+                      oneOf:
+                      - type: boolean
+                      - type: 'null'
+                      description: Whether the Headcount is private.
+                      title: ohana.common.schemas.public-api.headcount/headcount-is-private
+                      example: true
+                    actual-bonus-perc:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Actual bonus-perc of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-bonus-perc
+                      example: 10
+                    target-start-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Target start date of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-start-date
+                      example: 08-26-2024
+                    budget-start-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Budget start date of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/budget-start-date
+                      example: 08-26-2024
+                    is-current:
+                      oneOf:
+                      - type: boolean
+                      - type: 'null'
+                      description: Whether the Headcount is included in current hiring plan or not.
+                      title: ohana.common.schemas.public-api.headcount/is-current
+                      example: true
+                    division:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Division of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/division
+                      example: Engineering
+                    employee-email:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Employee email
+                      title: ohana.common.schemas.public-api.headcount/employee-email
+                      example: a@b.com
+                    budget-pay-rate:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Budget pay rate of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/budget-pay-rate
+                      example: YEAR
+                    hris-employee-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: HRIS Employee ID
+                      title: ohana.common.schemas.public-api.headcount/hris-employee-id
+                      example: '1234'
+                    job-level:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Job level of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/job-level
+                      example: L2
+                    job-name:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Job name of the Headcount - concatenation of ATS job-id and job name.
+                      title: ohana.common.schemas.public-api.headcount/job-name
+                      example: GH-1234 - Sales Director, Generative AI
+                    denied-justification:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Justification of denial if the Headcount is denied.
+                      title: ohana.common.schemas.public-api.headcount/denied-justification
+                      example: Not Suitable
+                    hiring-plan-active:
+                      oneOf:
+                      - type: boolean
+                      - type: 'null'
+                      description: Whether the Headcount is included in current hiring plan or not.
+                      title: ohana.common.schemas.public-api.headcount/hiring-plan-active
+                      example: true
+                    actual-salary:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Actual salary of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-salary
+                      example: '2345.0'
+                    location:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Location of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/location
+                      example: San francisco, USA
+                    employee-id:
+                      oneOf:
+                      - type: string
+                        format: uuid
+                      - type: 'null'
+                      description: Employee ID.
+                      title: ohana.common.schemas.public-api.headcount/employee-id
+                      example: uuid
+                    reporting-manager-email:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Email of the reporting manager.
+                      title: ohana.common.schemas.public-api.headcount/reporting-manager-email
+                      example: stephen.marshall@example.com
+                    last-updated:
+                      oneOf:
+                      - type: string
+                        format: date-time
+                      - type: 'null'
+                      description: Last update date of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/last-updated
+                      example: '2024-07-15T00:00:00Z'
+                    headcount-status:
+                      oneOf:
+                      - enum:
+                        - Filled
+                        - Approved
+                        - Denied
+                        - In Approval
+                        - Archived
+                        type: string
+                      - type: 'null'
+                      description: Current status of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/headcount-status
+                      example: Approved
+                    actual-equity-currency:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Actual Equity currency of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-equity-currency
+                      example: USD
+                    status:
+                      oneOf:
+                      - enum:
+                        - Filled
+                        - Approved
+                        - Denied
+                        - In Approval
+                        - Archived
+                        type: string
+                      - type: 'null'
+                      description: Current status of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/status
+                      example: Approved
+                    actual-start-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Actual start date of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-start-date
+                      example: 08-26-2024
+                    target-open-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Target open date of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-open-date
+                      example: 08-26-2024
+                    pay-rate:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Pay rate of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/pay-rate
+                      example: YEAR
+                    target-bonus:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target bonus of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-bonus
+                      example: 8484.0
+                    budget-currency:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Budget currency of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/budget-currency
+                      example: USD
+                    job-title:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Job title of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/job-title
+                      example: Software Engineer
+                    future-termination:
+                      oneOf:
+                      - type: boolean
+                      - type: 'null'
+                      description: Is the employee termination in future
+                      title: ohana.common.schemas.public-api.headcount/future-termination
+                      example: true
+                    backfill-employee:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Name of the backfill employee for this Headcount.
+                      title: ohana.common.schemas.public-api.headcount/backfill-employee
+                      example: Ramzi Ali
+                    annualized-actual-salary:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Actual salary calculated annually.
+                      title: ohana.common.schemas.public-api.headcount/annualized-actual-salary
+                      example: 28140.0
+                    backfill-employee-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Employee ID of backfilled employee for the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/backfill-employee-id
+                      example: '1234'
+                    track-management:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Docker specific field
+                      title: ohana.common.schemas.public-api.headcount/track-management
+                      example: ABC
+                    hris-employee-remote-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: HRIS Remote Employee ID
+                      title: ohana.common.schemas.public-api.headcount/hris-employee-remote-id
+                      example: '1234'
+                    target-salary:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target salary of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-salary
+                      example: 84840.0
+                    target-currency:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Target currency of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-currency
+                      example: USD
+                    hiring-plan:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Name of the hiring plan
+                      title: ohana.common.schemas.public-api.headcount/hiring-plan
+                      example: FY Hiring plan 2025
+                    state:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Docker specific field
+                      title: ohana.common.schemas.public-api.headcount/state
+                      example: S
+                    annualized-target-salary:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target salary calculated annually for this Headcount.
+                      title: ohana.common.schemas.public-api.headcount/annualized-target-salary
+                      example: 1018080.0
+                    employee-name:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Name of the employee.
+                      title: ohana.common.schemas.public-api.headcount/employee-name
+                      example: Terry Peters
+                    offer-sent-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Offer sent date for the headcount if exists.
+                      title: ohana.common.schemas.public-api.headcount/offer-sent-date
+                      example: 08-26-2024
+                    actual-currency:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Actual currency of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/actual-currency
+                      example: USD
+                    budget-variable:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Budget variable of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/budget-variable
+                      example: 105000.0
+                    pay-rate-multiplier:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Pay rate multiplier of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/pay-rate-multiplier
+                      example: 2080
+                    termination-reconciled:
+                      oneOf:
+                      - type: boolean
+                      - type: 'null'
+                      description: Was the employee termination reconciled
+                      title: ohana.common.schemas.public-api.headcount/termination-reconciled
+                      example: true
+                    job-role:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Job role of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/job-role
+                      example: Marketing
+                    headcount-url:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: URL of the Headcount details in TeamOhana.
+                      title: ohana.common.schemas.public-api.headcount/headcount-url
+                      example: https://app.teamohana.us/headcount-details/1949a6b5-eaeb-4ee3-8d3d-9c597b04c918
+                    reporting-manager-hris-employee-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: HRIS Employee ID of the Reporting manager of the employee
+                      title: ohana.common.schemas.public-api.headcount/reporting-manager-hris-employee-id
+                      example: '1234'
+                    offer-accept-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Offer acceptance date for the headcount if exists.
+                      title: ohana.common.schemas.public-api.headcount/offer-accept-date
+                      example: 08-26-2024
+                    team:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Headcount's team name.
+                      title: ohana.common.schemas.public-api.headcount/team
+                      example: Sales
+                    approval-requested-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Date of approval for this Headcount .
+                      title: ohana.common.schemas.public-api.headcount/approval-requested-date
+                      example: 08-26-2024
+                    initiative:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Initiative name of the Headcount if exists.
+                      title: ohana.common.schemas.public-api.headcount/initiative
+                      example: Initiative Name
+                    job-function:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Docker specific field
+                      title: ohana.common.schemas.public-api.headcount/job-function
+                      example: ABC
+                    target-hire-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Target hire date of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-hire-date
+                      example: 08-26-2024
+                    target-pay-rate:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Target pay rate of the Headcount.
+                      title: ohana.common.schemas.public-api.headcount/target-pay-rate
+                      example: YEAR
+                    employment-end-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Employment end date for the headcount if exists.
+                      title: ohana.common.schemas.public-api.headcount/employment-end-date
+                      example: 08-26-2024
+                    teamohana-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Teamohana ID
+                      title: ohana.common.schemas.public-api.headcount/teamohana-id
+                      example: TO-1234
+                    coordinators:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Names of the coordinators split by `;`
+                      title: ohana.common.schemas.public-api.headcount/coordinators
+                      example: Stephen Marshall ; Mark Henry
+                    justification:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Headcount Justification
+                      title: ohana.common.schemas.public-api.headcount/justification
+                      example: Need additional resource
+                    termination-regrettable:
+                      oneOf:
+                      - type: boolean
+                      - type: 'null'
+                      description: Was the employee termination regrettable
+                      title: ohana.common.schemas.public-api.headcount/termination-regrettable
+                      example: true
+                  required:
+                  - employee-name
+                  - job-title
+                  - division
+                  - department
+                  - job-level
+                  - location
+                  - employee-type
+                  - reporting-manager
+                  - target-start-date
+                  title: ohana.common.schemas.public-api.headcount/headcount-or-employee
+                title: ohana.common.schemas.public-api.headcount/api-response
+      tags:
+      - Headcount
+      summary: Fetch all the headcount in TeamOhana.
+      description: Get a list of all valid headcount that exists in TeamOhana. Supports optional filtering by plan, status, hiring status, department, and division. Refer to the [Headcount Data API FAQ](/faq/index.html#headcount-data-api) for more details.
+  /{domain}/v1/headcount/upload/pigment:
+    post:
+      parameters:
+      - name: domain
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                import-configuration-id:
+                  type: string
+                time-period:
+                  enum:
+                  - this-year
+                  type: string
+                  description: 'Filter records whose effective start date falls within the org''s current fiscal year. Valid values: this-year.'
+                  title: ohana.core.utils.time-periods/time-period
+              required:
+              - import-configuration-id
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
+        '500':
+          description: Something went wrong. Please contact TeamOhana support.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
+        '200':
+          description: A success message describing the result of the upload.
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Headcount
+      summary: Generate headcount CSV and upload it to pigment
+      description: Generate the headcount CSV and trigger an async upload to Pigment. Optionally pass time-period in the body (currently only `"this-year"` is supported) to scope the CSV to the org's current fiscal year. Refer to the [Pigment Connector API FAQ](/faq/index.html#pigment-connector-api) for more details.
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+x-id:
+- reitit.openapi/default

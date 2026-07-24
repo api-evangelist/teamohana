@@ -1,0 +1,2690 @@
+openapi: 3.1.0
+info:
+  title: TeamOhana Public Discovery SCIM API
+  description: 'Refer to the [API FAQ](/faq) for more details on the usage.
+
+
+    Note: API keys for the SCIM API and the Headcount API are different. Please make sure you are using the right keys.'
+  version: '1.0'
+  termsOfService: https://www.teamohana.com/terms-and-conditions
+security:
+- Authorization: []
+tags:
+- name: SCIM
+paths:
+  /{domain}/ServiceProviderConfig:
+    get:
+      parameters:
+      - name: domain
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig
+                      type: string
+                  authenticationSchemes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          enum:
+                          - httpdigest
+                          - oauth2
+                          - httpbasic
+                          - oauthbearertoken
+                          - oauth
+                          type: string
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        specUri:
+                          type: string
+                        documentationUri:
+                          type: string
+                      required:
+                      - type
+                      - name
+                      - description
+                  sort:
+                    type: object
+                    properties:
+                      supported:
+                        type: boolean
+                    required:
+                    - supported
+                    title: ohana.common.schemas.scim.service-prodvider/sort
+                  changePassword:
+                    type: object
+                    properties:
+                      supported:
+                        type: boolean
+                    required:
+                    - supported
+                    title: ohana.common.schemas.scim.service-prodvider/changePassword
+                  patch:
+                    type: object
+                    properties:
+                      supported:
+                        type: boolean
+                    required:
+                    - supported
+                    title: ohana.common.schemas.scim.service-prodvider/patch
+                  filter:
+                    type: object
+                    properties:
+                      supported:
+                        type: boolean
+                      maxResults:
+                        type: integer
+                        format: int64
+                    required:
+                    - supported
+                    - maxResults
+                    title: ohana.common.schemas.scim.service-prodvider/filter
+                  etag:
+                    type: object
+                    properties:
+                      supported:
+                        type: boolean
+                    required:
+                    - supported
+                    title: ohana.common.schemas.scim.service-prodvider/etag
+                  documentationUri:
+                    type: string
+                  bulk:
+                    type: object
+                    properties:
+                      supported:
+                        type: boolean
+                      maxOperations:
+                        type: integer
+                        format: int64
+                      maxPayloadSize:
+                        type: integer
+                        format: int64
+                    required:
+                    - supported
+                    - maxOperations
+                    - maxPayloadSize
+                    title: ohana.common.schemas.scim.service-prodvider/bulk
+                required:
+                - authenticationSchemes
+                - bulk
+                - changePassword
+                - etag
+                - filter
+                - patch
+                - schemas
+                - sort
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - 307
+                    - 401
+                    - 412
+                    - 308
+                    - 500
+                    - 501
+                    - 413
+                    - 404
+                    - 409
+                    - 400
+                    - 403
+                    type: string
+                  detail:
+                    type: string
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:api:messages:2.0:Error
+                      type: string
+                required:
+                - status
+                - detail
+                - schemas
+                title: ohana.public-api.web.routes.all/scim-error
+      tags:
+      - SCIM
+      summary: Fetch server capabilities
+      description: This API is used to figure out all the SCIM features supported by us. Currently all the features except changePassword are unsupported and the supported authentication scheme is basic auth.
+  /{domain}/Users/{id}:
+    get:
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: domain
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      responses:
+        '404':
+          description: No such resource found. Please check the id or filters again.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - 307
+                    - 401
+                    - 412
+                    - 308
+                    - 500
+                    - 501
+                    - 413
+                    - 404
+                    - 409
+                    - 400
+                    - 403
+                    type: string
+                  detail:
+                    type: string
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:api:messages:2.0:Error
+                      type: string
+                required:
+                - status
+                - detail
+                - schemas
+                title: ohana.public-api.web.routes.all/scim-error
+        '400':
+          description: Request does not conform to the SCIM standard. Check for typos or missing fields.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - 307
+                    - 401
+                    - 412
+                    - 308
+                    - 500
+                    - 501
+                    - 413
+                    - 404
+                    - 409
+                    - 400
+                    - 403
+                    type: string
+                  detail:
+                    type: string
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:api:messages:2.0:Error
+                      type: string
+                  scimType:
+                    enum:
+                    - invalidSyntax
+                    - noTarget
+                    - invalidValue
+                    - invalidPath
+                    - sensitive
+                    - invalidFilter
+                    - uniqueness
+                    - tooMany
+                    - mutability
+                    - invalidVers
+                    type: string
+                required:
+                - detail
+                - schemas
+                - status
+        '500':
+          description: Something went wrong at TeamOhana. Please contact support.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - 307
+                    - 401
+                    - 412
+                    - 308
+                    - 500
+                    - 501
+                    - 413
+                    - 404
+                    - 409
+                    - 400
+                    - 403
+                    type: string
+                  detail:
+                    type: string
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:api:messages:2.0:Error
+                      type: string
+                required:
+                - status
+                - detail
+                - schemas
+                title: ohana.public-api.web.routes.all/scim-error
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  entitlements:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  profileUrl:
+                    type: string
+                  schemas: {}
+                  nickname:
+                    type: string
+                  preferredLanguage:
+                    type: string
+                  ims:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  timezone:
+                    type: string
+                  displayName:
+                    type: string
+                  id:
+                    type: string
+                  userType:
+                    type: string
+                  name:
+                    type: object
+                    properties:
+                      formatted:
+                        type: string
+                      familyName:
+                        type: string
+                      givenName:
+                        type: string
+                      middleName:
+                        type: string
+                      honorificPrefix:
+                        type: string
+                      honorificSuffix:
+                        type: string
+                    title: ohana.common.schemas.scim.user/name
+                  locale:
+                    type: string
+                  urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:
+                    type: object
+                    additionalProperties: {}
+                    title: ohana.common.schemas.scim.user/urn:ietf:params:scim:schemas:extension:enterprise:2.0:User
+                  userName:
+                    type: string
+                  addresses:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        primary:
+                          type: boolean
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        formatted:
+                          type: string
+                        streetAddress:
+                          type: string
+                        locality:
+                          type: string
+                        region:
+                          type: string
+                        postalCode:
+                          type: string
+                        country:
+                          type: string
+                  title:
+                    type: string
+                  meta:
+                    type: object
+                    properties:
+                      resourceType:
+                        enum:
+                        - user
+                        type: string
+                      created:
+                        type: string
+                        format: date-time
+                      lastModified:
+                        type: string
+                        format: date-time
+                      location:
+                        type: string
+                      version:
+                        type: string
+                        format: uuid
+                    required:
+                    - resourceType
+                    - created
+                    - lastModified
+                    - location
+                    - version
+                    title: ohana.common.schemas.scim.common/meta
+                  password:
+                    type: string
+                  photos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  x509Certificates:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  emails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  active:
+                    type: boolean
+                  phoneNumbers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  roles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            - teamohana
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      title: ohana.common.schemas.scim.user/role
+                  groups:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  externalId:
+                    type: string
+                required:
+                - id
+                - meta
+                - schemas
+                - userName
+      tags:
+      - SCIM
+      summary: Fetch a user
+      description: Given an id return all the fields stored by TeamOhana. As per SCIM specification passwords will not be returned.
+    put:
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: domain
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entitlements:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    required:
+                    - value
+                profileUrl:
+                  type: string
+                schemas: {}
+                nickname:
+                  type: string
+                preferredLanguage:
+                  type: string
+                ims:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    required:
+                    - value
+                timezone:
+                  type: string
+                displayName:
+                  type: string
+                userType:
+                  type: string
+                name:
+                  type: object
+                  properties:
+                    formatted:
+                      type: string
+                    familyName:
+                      type: string
+                    givenName:
+                      type: string
+                    middleName:
+                      type: string
+                    honorificPrefix:
+                      type: string
+                    honorificSuffix:
+                      type: string
+                  title: ohana.common.schemas.scim.user/name
+                locale:
+                  type: string
+                urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:
+                  type: object
+                  additionalProperties: {}
+                  title: ohana.common.schemas.scim.user/urn:ietf:params:scim:schemas:extension:enterprise:2.0:User
+                userName:
+                  type: string
+                addresses:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      primary:
+                        type: boolean
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      formatted:
+                        type: string
+                      streetAddress:
+                        type: string
+                      locality:
+                        type: string
+                      region:
+                        type: string
+                      postalCode:
+                        type: string
+                      country:
+                        type: string
+                title:
+                  type: string
+                password:
+                  type: string
+                photos:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    required:
+                    - value
+                x509Certificates:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    required:
+                    - value
+                emails:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    required:
+                    - value
+                active:
+                  type: boolean
+                phoneNumbers:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    required:
+                    - value
+                roles:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          - teamohana
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    title: ohana.common.schemas.scim.user/role
+                groups:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    required:
+                    - value
+              required:
+              - schemas
+              - userName
+              title: ohana.common.schemas.scim.user/user
+      responses:
+        '404':
+          description: No such resource found. Please check the id or filters again.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - 307
+                    - 401
+                    - 412
+                    - 308
+                    - 500
+                    - 501
+                    - 413
+                    - 404
+                    - 409
+                    - 400
+                    - 403
+                    type: string
+                  detail:
+                    type: string
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:api:messages:2.0:Error
+                      type: string
+                required:
+                - status
+                - detail
+                - schemas
+                title: ohana.public-api.web.routes.all/scim-error
+        '400':
+          description: Request does not conform to the SCIM standard. Check for typos or missing fields.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - 307
+                    - 401
+                    - 412
+                    - 308
+                    - 500
+                    - 501
+                    - 413
+                    - 404
+                    - 409
+                    - 400
+                    - 403
+                    type: string
+                  detail:
+                    type: string
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:api:messages:2.0:Error
+                      type: string
+                  scimType:
+                    enum:
+                    - invalidSyntax
+                    - noTarget
+                    - invalidValue
+                    - invalidPath
+                    - sensitive
+                    - invalidFilter
+                    - uniqueness
+                    - tooMany
+                    - mutability
+                    - invalidVers
+                    type: string
+                required:
+                - detail
+                - schemas
+                - status
+        '500':
+          description: Something went wrong at TeamOhana. Please contact support.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - 307
+                    - 401
+                    - 412
+                    - 308
+                    - 500
+                    - 501
+                    - 413
+                    - 404
+                    - 409
+                    - 400
+                    - 403
+                    type: string
+                  detail:
+                    type: string
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:api:messages:2.0:Error
+                      type: string
+                required:
+                - status
+                - detail
+                - schemas
+                title: ohana.public-api.web.routes.all/scim-error
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  entitlements:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  profileUrl:
+                    type: string
+                  schemas: {}
+                  nickname:
+                    type: string
+                  preferredLanguage:
+                    type: string
+                  ims:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  timezone:
+                    type: string
+                  displayName:
+                    type: string
+                  id:
+                    type: string
+                  userType:
+                    type: string
+                  name:
+                    type: object
+                    properties:
+                      formatted:
+                        type: string
+                      familyName:
+                        type: string
+                      givenName:
+                        type: string
+                      middleName:
+                        type: string
+                      honorificPrefix:
+                        type: string
+                      honorificSuffix:
+                        type: string
+                    title: ohana.common.schemas.scim.user/name
+                  locale:
+                    type: string
+                  urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:
+                    type: object
+                    additionalProperties: {}
+                    title: ohana.common.schemas.scim.user/urn:ietf:params:scim:schemas:extension:enterprise:2.0:User
+                  userName:
+                    type: string
+                  addresses:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        primary:
+                          type: boolean
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        formatted:
+                          type: string
+                        streetAddress:
+                          type: string
+                        locality:
+                          type: string
+                        region:
+                          type: string
+                        postalCode:
+                          type: string
+                        country:
+                          type: string
+                  title:
+                    type: string
+                  meta:
+                    type: object
+                    properties:
+                      resourceType:
+                        enum:
+                        - user
+                        type: string
+                      created:
+                        type: string
+                        format: date-time
+                      lastModified:
+                        type: string
+                        format: date-time
+                      location:
+                        type: string
+                      version:
+                        type: string
+                        format: uuid
+                    required:
+                    - resourceType
+                    - created
+                    - lastModified
+                    - location
+                    - version
+                    title: ohana.common.schemas.scim.common/meta
+                  password:
+                    type: string
+                  photos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  x509Certificates:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  emails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  active:
+                    type: boolean
+                  phoneNumbers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  roles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            - teamohana
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      title: ohana.common.schemas.scim.user/role
+                  groups:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  externalId:
+                    type: string
+                required:
+                - id
+                - meta
+                - schemas
+                - userName
+      tags:
+      - SCIM
+      summary: Update a user
+      description: Given an id and a body update the data in TeamOhana and return the update payload. As per SCIM specification passwords will not be returned. Passwords can still be updated since they have a writeOnly mutability. This API can be used to activate and deactivate a user.
+    delete:
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: domain
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      responses:
+        '404':
+          description: No such resource found. Please check the id or filters again.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - 307
+                    - 401
+                    - 412
+                    - 308
+                    - 500
+                    - 501
+                    - 413
+                    - 404
+                    - 409
+                    - 400
+                    - 403
+                    type: string
+                  detail:
+                    type: string
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:api:messages:2.0:Error
+                      type: string
+                required:
+                - status
+                - detail
+                - schemas
+                title: ohana.public-api.web.routes.all/scim-error
+        '400':
+          description: Request does not conform to the SCIM standard. Check for typos or missing fields.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - 307
+                    - 401
+                    - 412
+                    - 308
+                    - 500
+                    - 501
+                    - 413
+                    - 404
+                    - 409
+                    - 400
+                    - 403
+                    type: string
+                  detail:
+                    type: string
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:api:messages:2.0:Error
+                      type: string
+                  scimType:
+                    enum:
+                    - invalidSyntax
+                    - noTarget
+                    - invalidValue
+                    - invalidPath
+                    - sensitive
+                    - invalidFilter
+                    - uniqueness
+                    - tooMany
+                    - mutability
+                    - invalidVers
+                    type: string
+                required:
+                - detail
+                - schemas
+                - status
+        '500':
+          description: Something went wrong at TeamOhana. Please contact support.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - 307
+                    - 401
+                    - 412
+                    - 308
+                    - 500
+                    - 501
+                    - 413
+                    - 404
+                    - 409
+                    - 400
+                    - 403
+                    type: string
+                  detail:
+                    type: string
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:api:messages:2.0:Error
+                      type: string
+                required:
+                - status
+                - detail
+                - schemas
+                title: ohana.public-api.web.routes.all/scim-error
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+      - SCIM
+      summary: Delete a user
+      description: Given an id delete the user. As per SCIM specification return an empty body on successful deletion.
+  /{domain}/Users:
+    get:
+      parameters:
+      - name: domain
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: count
+        in: query
+        description: ''
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: integer
+            format: int64
+            minimum: 1
+      - name: startIndex
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      - name: filter
+        in: query
+        description: ''
+        required: false
+        schema: {}
+      responses:
+        '400':
+          description: Request does not conform to the SCIM standard. Check for typos or missing fields.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - 307
+                    - 401
+                    - 412
+                    - 308
+                    - 500
+                    - 501
+                    - 413
+                    - 404
+                    - 409
+                    - 400
+                    - 403
+                    type: string
+                  detail:
+                    type: string
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:api:messages:2.0:Error
+                      type: string
+                  scimType:
+                    enum:
+                    - invalidSyntax
+                    - noTarget
+                    - invalidValue
+                    - invalidPath
+                    - sensitive
+                    - invalidFilter
+                    - uniqueness
+                    - tooMany
+                    - mutability
+                    - invalidVers
+                    type: string
+                required:
+                - detail
+                - schemas
+                - status
+        '500':
+          description: Something went wrong at TeamOhana. Please contact support.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - 307
+                    - 401
+                    - 412
+                    - 308
+                    - 500
+                    - 501
+                    - 413
+                    - 404
+                    - 409
+                    - 400
+                    - 403
+                    type: string
+                  detail:
+                    type: string
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:api:messages:2.0:Error
+                      type: string
+                required:
+                - status
+                - detail
+                - schemas
+                title: ohana.public-api.web.routes.all/scim-error
+        '200':
+          description: A list response containing all the users.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Resources:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        entitlements:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                oneOf:
+                                - type: string
+                                - type: 'null'
+                              primary:
+                                type: boolean
+                              display:
+                                type: string
+                              type:
+                                oneOf:
+                                - enum:
+                                  - ''
+                                  - home
+                                  - work
+                                  - other
+                                  type: string
+                                - type: 'null'
+                              $ref:
+                                type: string
+                            required:
+                            - value
+                        profileUrl:
+                          type: string
+                        nickname:
+                          type: string
+                        preferredLanguage:
+                          type: string
+                        ims:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                oneOf:
+                                - type: string
+                                - type: 'null'
+                              primary:
+                                type: boolean
+                              display:
+                                type: string
+                              type:
+                                oneOf:
+                                - enum:
+                                  - ''
+                                  - home
+                                  - work
+                                  - other
+                                  type: string
+                                - type: 'null'
+                              $ref:
+                                type: string
+                            required:
+                            - value
+                        timezone:
+                          type: string
+                        displayName:
+                          type: string
+                        userType:
+                          type: string
+                        name:
+                          type: object
+                          properties:
+                            formatted:
+                              type: string
+                            familyName:
+                              type: string
+                            givenName:
+                              type: string
+                            middleName:
+                              type: string
+                            honorificPrefix:
+                              type: string
+                            honorificSuffix:
+                              type: string
+                          title: ohana.common.schemas.scim.user/name
+                        locale:
+                          type: string
+                        urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:
+                          type: object
+                          additionalProperties: {}
+                          title: ohana.common.schemas.scim.user/urn:ietf:params:scim:schemas:extension:enterprise:2.0:User
+                        userName:
+                          type: string
+                        addresses:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              primary:
+                                type: boolean
+                              type:
+                                oneOf:
+                                - enum:
+                                  - ''
+                                  - home
+                                  - work
+                                  - other
+                                  type: string
+                                - type: 'null'
+                              formatted:
+                                type: string
+                              streetAddress:
+                                type: string
+                              locality:
+                                type: string
+                              region:
+                                type: string
+                              postalCode:
+                                type: string
+                              country:
+                                type: string
+                        title:
+                          type: string
+                        password:
+                          type: string
+                        photos:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                oneOf:
+                                - type: string
+                                - type: 'null'
+                              primary:
+                                type: boolean
+                              display:
+                                type: string
+                              type:
+                                oneOf:
+                                - enum:
+                                  - ''
+                                  - home
+                                  - work
+                                  - other
+                                  type: string
+                                - type: 'null'
+                              $ref:
+                                type: string
+                            required:
+                            - value
+                        x509Certificates:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                oneOf:
+                                - type: string
+                                - type: 'null'
+                              primary:
+                                type: boolean
+                              display:
+                                type: string
+                              type:
+                                oneOf:
+                                - enum:
+                                  - ''
+                                  - home
+                                  - work
+                                  - other
+                                  type: string
+                                - type: 'null'
+                              $ref:
+                                type: string
+                            required:
+                            - value
+                        emails:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                oneOf:
+                                - type: string
+                                - type: 'null'
+                              primary:
+                                type: boolean
+                              display:
+                                type: string
+                              type:
+                                oneOf:
+                                - enum:
+                                  - ''
+                                  - home
+                                  - work
+                                  - other
+                                  type: string
+                                - type: 'null'
+                              $ref:
+                                type: string
+                            required:
+                            - value
+                        active:
+                          type: boolean
+                        phoneNumbers:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                oneOf:
+                                - type: string
+                                - type: 'null'
+                              primary:
+                                type: boolean
+                              display:
+                                type: string
+                              type:
+                                oneOf:
+                                - enum:
+                                  - ''
+                                  - home
+                                  - work
+                                  - other
+                                  type: string
+                                - type: 'null'
+                              $ref:
+                                type: string
+                            required:
+                            - value
+                        roles:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                oneOf:
+                                - type: string
+                                - type: 'null'
+                              primary:
+                                type: boolean
+                              display:
+                                type: string
+                              type:
+                                oneOf:
+                                - enum:
+                                  - ''
+                                  - home
+                                  - work
+                                  - other
+                                  - teamohana
+                                  type: string
+                                - type: 'null'
+                              $ref:
+                                type: string
+                            title: ohana.common.schemas.scim.user/role
+                        groups:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                oneOf:
+                                - type: string
+                                - type: 'null'
+                              primary:
+                                type: boolean
+                              display:
+                                type: string
+                              type:
+                                oneOf:
+                                - enum:
+                                  - ''
+                                  - home
+                                  - work
+                                  - other
+                                  type: string
+                                - type: 'null'
+                              $ref:
+                                type: string
+                            required:
+                            - value
+                      required:
+                      - userName
+                      title: ohana.common.schemas.scim.user/user-wo-schema
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - list-response
+                      type: string
+                  totalResults:
+                    anyOf:
+                    - type: integer
+                    - type: integer
+                      format: int64
+                      minimum: 1
+                  startIndex:
+                    type: integer
+                    format: int64
+                    minimum: 1
+                  itemsPerPage:
+                    anyOf:
+                    - type: integer
+                    - type: integer
+                      format: int64
+                      minimum: 1
+                required:
+                - Resources
+                - schemas
+                - totalResults
+                title: ohana.common.schemas.scim.users/result
+      tags:
+      - SCIM
+      summary: Fetch all the users in TeamOhana.
+      description: Get a list of all the users that exists in TeamOhana.
+    post:
+      parameters:
+      - name: domain
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entitlements:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    required:
+                    - value
+                profileUrl:
+                  type: string
+                schemas: {}
+                nickname:
+                  type: string
+                preferredLanguage:
+                  type: string
+                ims:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    required:
+                    - value
+                timezone:
+                  type: string
+                displayName:
+                  type: string
+                userType:
+                  type: string
+                name:
+                  type: object
+                  properties:
+                    formatted:
+                      type: string
+                    familyName:
+                      type: string
+                    givenName:
+                      type: string
+                    middleName:
+                      type: string
+                    honorificPrefix:
+                      type: string
+                    honorificSuffix:
+                      type: string
+                  title: ohana.common.schemas.scim.user/name
+                locale:
+                  type: string
+                urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:
+                  type: object
+                  additionalProperties: {}
+                  title: ohana.common.schemas.scim.user/urn:ietf:params:scim:schemas:extension:enterprise:2.0:User
+                userName:
+                  type: string
+                addresses:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      primary:
+                        type: boolean
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      formatted:
+                        type: string
+                      streetAddress:
+                        type: string
+                      locality:
+                        type: string
+                      region:
+                        type: string
+                      postalCode:
+                        type: string
+                      country:
+                        type: string
+                title:
+                  type: string
+                create-in-auth0:
+                  type: boolean
+                password:
+                  type: string
+                photos:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    required:
+                    - value
+                x509Certificates:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    required:
+                    - value
+                emails:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    required:
+                    - value
+                active:
+                  type: boolean
+                phoneNumbers:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    required:
+                    - value
+                roles:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          - teamohana
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    title: ohana.common.schemas.scim.user/role
+                groups:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        oneOf:
+                        - type: string
+                        - type: 'null'
+                      primary:
+                        type: boolean
+                      display:
+                        type: string
+                      type:
+                        oneOf:
+                        - enum:
+                          - ''
+                          - home
+                          - work
+                          - other
+                          type: string
+                        - type: 'null'
+                      $ref:
+                        type: string
+                    required:
+                    - value
+                externalId:
+                  type: string
+              required:
+              - schemas
+              - userName
+      responses:
+        '400':
+          description: Request does not conform to the SCIM standard. Check for typos or missing fields.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - 307
+                    - 401
+                    - 412
+                    - 308
+                    - 500
+                    - 501
+                    - 413
+                    - 404
+                    - 409
+                    - 400
+                    - 403
+                    type: string
+                  detail:
+                    type: string
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:api:messages:2.0:Error
+                      type: string
+                  scimType:
+                    enum:
+                    - invalidSyntax
+                    - noTarget
+                    - invalidValue
+                    - invalidPath
+                    - sensitive
+                    - invalidFilter
+                    - uniqueness
+                    - tooMany
+                    - mutability
+                    - invalidVers
+                    type: string
+                required:
+                - detail
+                - schemas
+                - status
+        '500':
+          description: Something went wrong at TeamOhana. Please contact support.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - 307
+                    - 401
+                    - 412
+                    - 308
+                    - 500
+                    - 501
+                    - 413
+                    - 404
+                    - 409
+                    - 400
+                    - 403
+                    type: string
+                  detail:
+                    type: string
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:api:messages:2.0:Error
+                      type: string
+                required:
+                - status
+                - detail
+                - schemas
+                title: ohana.public-api.web.routes.all/scim-error
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  entitlements:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  profileUrl:
+                    type: string
+                  schemas: {}
+                  nickname:
+                    type: string
+                  preferredLanguage:
+                    type: string
+                  ims:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  timezone:
+                    type: string
+                  displayName:
+                    type: string
+                  id:
+                    type: string
+                  userType:
+                    type: string
+                  name:
+                    type: object
+                    properties:
+                      formatted:
+                        type: string
+                      familyName:
+                        type: string
+                      givenName:
+                        type: string
+                      middleName:
+                        type: string
+                      honorificPrefix:
+                        type: string
+                      honorificSuffix:
+                        type: string
+                    title: ohana.common.schemas.scim.user/name
+                  locale:
+                    type: string
+                  urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:
+                    type: object
+                    additionalProperties: {}
+                    title: ohana.common.schemas.scim.user/urn:ietf:params:scim:schemas:extension:enterprise:2.0:User
+                  userName:
+                    type: string
+                  addresses:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        primary:
+                          type: boolean
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        formatted:
+                          type: string
+                        streetAddress:
+                          type: string
+                        locality:
+                          type: string
+                        region:
+                          type: string
+                        postalCode:
+                          type: string
+                        country:
+                          type: string
+                  title:
+                    type: string
+                  meta:
+                    type: object
+                    properties:
+                      resourceType:
+                        enum:
+                        - user
+                        type: string
+                      created:
+                        type: string
+                        format: date-time
+                      lastModified:
+                        type: string
+                        format: date-time
+                      location:
+                        type: string
+                      version:
+                        type: string
+                        format: uuid
+                    required:
+                    - resourceType
+                    - created
+                    - lastModified
+                    - location
+                    - version
+                    title: ohana.common.schemas.scim.common/meta
+                  password:
+                    type: string
+                  photos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  x509Certificates:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  emails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  active:
+                    type: boolean
+                  phoneNumbers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  roles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            - teamohana
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      title: ohana.common.schemas.scim.user/role
+                  groups:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: 'null'
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                        type:
+                          oneOf:
+                          - enum:
+                            - ''
+                            - home
+                            - work
+                            - other
+                            type: string
+                          - type: 'null'
+                        $ref:
+                          type: string
+                      required:
+                      - value
+                  externalId:
+                    type: string
+                required:
+                - id
+                - meta
+                - schemas
+                - userName
+        '409':
+          description: A resource with the same email already exists in the system.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    enum:
+                    - 307
+                    - 401
+                    - 412
+                    - 308
+                    - 500
+                    - 501
+                    - 413
+                    - 404
+                    - 409
+                    - 400
+                    - 403
+                    type: string
+                  detail:
+                    type: string
+                  schemas:
+                    type: array
+                    items:
+                      enum:
+                      - urn:ietf:params:scim:api:messages:2.0:Error
+                      type: string
+                required:
+                - status
+                - detail
+                - schemas
+                title: ohana.public-api.web.routes.all/scim-error
+      tags:
+      - SCIM
+      summary: Create a user
+      description: 'Given a body create the user in TeamOhana and return it to the user. If the password is not provided during creation a randomly generated password will be set for the user. The username should be an email id OR the emails field should contain at least one email with type work. The API will fail to create the user otherwise. By default the user is also provisioned in Auth0; set `create-in-auth0` to `false` in the body when the user already exists in Auth0 (e.g. via SSO) — in that case `externalId` must be set to the Auth0 user_id. The user''s role is taken from the `roles` attribute: the `value` of the entry whose `type` is `teamohana` (case-sensitive), is matched against the org''s role names. When no such entry is present the user defaults to the `employee` role; when a matching role is supplied but does not exist the request fails with 400 `invalidValue`.'
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+x-id:
+- reitit.openapi/default

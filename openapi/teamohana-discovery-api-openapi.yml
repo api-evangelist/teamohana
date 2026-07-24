@@ -1,0 +1,191 @@
+openapi: 3.1.0
+info:
+  title: TeamOhana Public Discovery API
+  description: 'Refer to the [API FAQ](/faq) for more details on the usage.
+
+
+    Note: API keys for the SCIM API and the Headcount API are different. Please make sure you are using the right keys.'
+  version: '1.0'
+  termsOfService: https://www.teamohana.com/terms-and-conditions
+security:
+- Authorization: []
+tags:
+- name: Discovery
+paths:
+  /{domain}/v1/plans:
+    get:
+      parameters:
+      - name: domain
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of hiring plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      description: UUID
+                      title: ohana.common.schemas.public-api.discovery/id
+                    name:
+                      type: string
+                      description: Display name
+                      title: ohana.common.schemas.public-api.discovery/name
+                    is-active:
+                      type: boolean
+                      description: Whether this is the currently active plan
+                      title: ohana.common.schemas.public-api.discovery/is-active
+                    start-date:
+                      oneOf:
+                      - type: string
+                        format: date-time
+                      - type: 'null'
+                      description: Plan start date
+                      title: ohana.common.schemas.public-api.discovery/start-date
+                    end-date:
+                      oneOf:
+                      - type: string
+                        format: date-time
+                      - type: 'null'
+                      description: Plan end date
+                      title: ohana.common.schemas.public-api.discovery/end-date
+                  required:
+                  - id
+                  - name
+                  - is-active
+                  description: A hiring plan.
+                  title: ohana.common.schemas.public-api.discovery/plan
+                description: List of hiring plans for the org.
+                title: ohana.common.schemas.public-api.discovery/plans
+        '401':
+          description: Request does not contain valid credentials.
+          content:
+            application/json:
+              schema:
+                type: string
+                title: ohana.common.schemas.public-api.common/message
+      tags:
+      - Discovery
+      summary: List hiring plans
+      description: Returns all hiring plans for the org. Use the returned id to filter GET /v1/headcount by plan.
+  /{domain}/v1/departments:
+    get:
+      parameters:
+      - name: domain
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of departments with division info.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      description: UUID
+                      title: ohana.common.schemas.public-api.discovery/id
+                    name:
+                      type: string
+                      description: Display name
+                      title: ohana.common.schemas.public-api.discovery/name
+                    division-id:
+                      oneOf:
+                      - type: string
+                        format: uuid
+                      - type: 'null'
+                      description: Parent division UUID. Nil if not linked to a division.
+                      title: ohana.common.schemas.public-api.discovery/division-id
+                    division-name:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Parent division display name.
+                      title: ohana.common.schemas.public-api.discovery/division-name
+                  required:
+                  - id
+                  - name
+                  description: A department, optionally linked to a division.
+                  title: ohana.common.schemas.public-api.discovery/department
+                description: List of departments for the org.
+                title: ohana.common.schemas.public-api.discovery/departments
+        '401':
+          description: Request does not contain valid credentials.
+          content:
+            application/json:
+              schema:
+                type: string
+                title: ohana.common.schemas.public-api.common/message
+      tags:
+      - Discovery
+      summary: List departments
+      description: Returns all departments with their parent division. Use the returned id to filter GET /v1/headcount by department.
+  /{domain}/v1/divisions:
+    get:
+      parameters:
+      - name: domain
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of divisions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      description: UUID
+                      title: ohana.common.schemas.public-api.discovery/id
+                    name:
+                      type: string
+                      description: Display name
+                      title: ohana.common.schemas.public-api.discovery/name
+                  required:
+                  - id
+                  - name
+                  description: A division.
+                  title: ohana.common.schemas.public-api.discovery/division
+                description: List of divisions for the org.
+                title: ohana.common.schemas.public-api.discovery/divisions
+        '401':
+          description: Request does not contain valid credentials.
+          content:
+            application/json:
+              schema:
+                type: string
+                title: ohana.common.schemas.public-api.common/message
+      tags:
+      - Discovery
+      summary: List divisions
+      description: Returns all divisions. Use the returned id to filter GET /v1/headcount by division.
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+x-id:
+- reitit.openapi/default

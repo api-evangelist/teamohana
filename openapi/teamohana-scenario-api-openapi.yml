@@ -1,0 +1,570 @@
+openapi: 3.1.0
+info:
+  title: TeamOhana Public Discovery Scenario API
+  description: 'Refer to the [API FAQ](/faq) for more details on the usage.
+
+
+    Note: API keys for the SCIM API and the Headcount API are different. Please make sure you are using the right keys.'
+  version: '1.0'
+  termsOfService: https://www.teamohana.com/terms-and-conditions
+security:
+- Authorization: []
+tags:
+- name: Scenario
+paths:
+  /{domain}/v1/scenarios:
+    get:
+      parameters:
+      - name: domain
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Request does not contain valid credentials.
+          content:
+            application/json:
+              schema:
+                type: string
+                title: ohana.common.schemas.public-api.common/message
+            text/csv:
+              schema:
+                type: string
+                title: ohana.common.schemas.public-api.common/message
+        '500':
+          description: Something went wrong at TeamOhana. Please contact support.
+          content:
+            application/json:
+              schema:
+                title: ohana.common.schemas.public-api.common/unhandled
+            text/csv:
+              schema:
+                title: ohana.common.schemas.public-api.common/unhandled
+        '200':
+          description: A list response containing all scenarios.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                    name:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                    type:
+                      enum:
+                      - Modify plan
+                      - New plan
+                      - New or Replan
+                      type: string
+                    status:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Current status
+                      title: ohana.common.schemas.public-api.scenario/status
+                      example: draft
+                    updated-at:
+                      oneOf:
+                      - type: string
+                        format: date-time
+                      - type: 'null'
+                    created-at:
+                      oneOf:
+                      - type: string
+                        format: date-time
+                      - type: 'null'
+                  title: ohana.common.schemas.public-api.scenario/scenario
+                description: List of scenario records
+                example:
+                - id: SC-123
+                  name: Next Year Planning
+                  type: Modify plan
+                  status: draft
+                  updated-at: '2026-02-04T10:11:05Z'
+                  created-at: '2026-01-04T23:23:05Z'
+                title: ohana.common.schemas.public-api.scenario/scenarios-list-response
+            text/csv:
+              schema:
+                type: string
+      tags:
+      - Scenario
+      summary: List all scenarios
+      description: Get a list of all scenarios accessible to the API key owner.
+  /{domain}/v1/scenarios/{id}/export:
+    get:
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: domain
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      responses:
+        '404':
+          description: No such resource found or access denied. Please check the id.
+          content:
+            application/json:
+              schema:
+                type: string
+                title: ohana.common.schemas.public-api.common/message
+            text/csv:
+              schema:
+                type: string
+                title: ohana.common.schemas.public-api.common/message
+        '500':
+          description: Something went wrong at TeamOhana. Please contact support.
+          content:
+            application/json:
+              schema:
+                title: ohana.common.schemas.public-api.common/unhandled
+            text/csv:
+              schema:
+                title: ohana.common.schemas.public-api.common/unhandled
+        '200':
+          description: A list response containing all headcount and employees within the scenario.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    employee-type:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Type of employment
+                      title: ohana.common.schemas.public-api.scenario/employee-type
+                      example: Full Time
+                    department:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Department name
+                      title: ohana.common.schemas.public-api.scenario/department
+                      example: Sales
+                    equity:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Equity compensation
+                      title: ohana.common.schemas.public-api.scenario/equity
+                      example: 30000.0
+                    target-variable:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target variable pay
+                      title: ohana.common.schemas.public-api.scenario/target-variable
+                      example: 30000.0
+                    priority:
+                      oneOf:
+                      - enum:
+                        - High
+                        - Normal
+                        - Critical
+                        - Low
+                        type: string
+                      - type: 'null'
+                      description: Priority of the Headcount.
+                      title: ohana.common.schemas.public-api.scenario/priority
+                      example: Normal
+                    entity-type:
+                      oneOf:
+                      - enum:
+                        - headcount
+                        - employee
+                        type: string
+                      - type: 'null'
+                      description: Type of entity (headcount or employee)
+                      title: ohana.common.schemas.public-api.scenario/entity-type
+                      example: headcount
+                    target-equity:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target equity
+                      title: ohana.common.schemas.public-api.scenario/target-equity
+                      example: 35000.0
+                    target-base:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target base pay
+                      title: ohana.common.schemas.public-api.scenario/target-base
+                      example: 155000.0
+                    opening-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: ATS opening ID
+                      title: ohana.common.schemas.public-api.scenario/opening-id
+                      example: 1234-567
+                    sub-team-field:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Sub-team field
+                      title: ohana.common.schemas.public-api.scenario/sub-team-field
+                      example: Platform
+                    reporting-manager:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Name of reporting manager
+                      title: ohana.common.schemas.public-api.scenario/reporting-manager
+                      example: Stephen Marshall
+                    target-bonus-perc:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target bonus percentage
+                      title: ohana.common.schemas.public-api.scenario/target-bonus-perc
+                      example: 10.0
+                    headcount-type:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Type of headcount
+                      title: ohana.common.schemas.public-api.scenario/headcount-type
+                      example: New hire
+                    budget-type:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Type of budget
+                      title: ohana.common.schemas.public-api.scenario/budget-type
+                      example: Budgeted
+                    base:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Base pay amount
+                      title: ohana.common.schemas.public-api.scenario/base
+                      example: 150000.0
+                    sub-team-archived:
+                      oneOf:
+                      - type: boolean
+                      - type: 'null'
+                      description: Whether sub-team is archived
+                      title: ohana.common.schemas.public-api.scenario/sub-team-archived
+                      example: false
+                    job-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Job ID from ATS
+                      title: ohana.common.schemas.public-api.scenario/job-id
+                      example: GH-1234
+                    pay-currency:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Currency for pay
+                      title: ohana.common.schemas.public-api.scenario/pay-currency
+                      example: USD
+                    target-start-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Target start date
+                      title: ohana.common.schemas.public-api.scenario/target-start-date
+                      example: '2024-10-01T00:00:00Z'
+                    scenario-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Scenario display ID
+                      title: ohana.common.schemas.public-api.scenario/scenario-id
+                      example: SC-123
+                    division:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Division name
+                      title: ohana.common.schemas.public-api.scenario/division
+                      example: Engineering
+                    hris-employee-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: HRIS Employee ID
+                      title: ohana.common.schemas.public-api.scenario/hris-employee-id
+                      example: EMP-1234
+                    remaining-budget:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Remaining budget
+                      title: ohana.common.schemas.public-api.scenario/remaining-budget
+                      example: 5000.0
+                    job-level:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Job level
+                      title: ohana.common.schemas.public-api.scenario/job-level
+                      example: L2
+                    location:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Work location
+                      title: ohana.common.schemas.public-api.scenario/location
+                      example: San Francisco, USA
+                    status:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Current status
+                      title: ohana.common.schemas.public-api.scenario/status
+                      example: draft
+                    variable:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Variable compensation
+                      title: ohana.common.schemas.public-api.scenario/variable
+                      example: 25000.0
+                    pay-rate:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Pay rate frequency
+                      title: ohana.common.schemas.public-api.scenario/pay-rate
+                      example: YEAR
+                    target-bonus:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target bonus amount
+                      title: ohana.common.schemas.public-api.scenario/target-bonus
+                      example: 5000.0
+                    job-title:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Job title or role
+                      title: ohana.common.schemas.public-api.scenario/job-title
+                      example: Software Engineer
+                    backfill-employee:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Backfill employee name
+                      title: ohana.common.schemas.public-api.scenario/backfill-employee
+                      example: John Smith
+                    sub-team-employee:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Sub-team employee name
+                      title: ohana.common.schemas.public-api.scenario/sub-team-employee
+                      example: Bob Johnson
+                    budget-impact:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Budget impact amount
+                      title: ohana.common.schemas.public-api.scenario/budget-impact
+                      example: 185000.0
+                    employee-name:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Employee name
+                      title: ohana.common.schemas.public-api.scenario/employee-name
+                      example: Jane Doe
+                    job-role:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Job role
+                      title: ohana.common.schemas.public-api.scenario/job-role
+                      example: Engineer
+                    target-impact:
+                      oneOf:
+                      - type: number
+                        format: double
+                      - type: 'null'
+                      description: Target impact or target budget
+                      title: ohana.common.schemas.public-api.scenario/target-impact
+                      example: 190000.0
+                    equity-currency:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Currency for equity
+                      title: ohana.common.schemas.public-api.scenario/equity-currency
+                      example: USD
+                    contract-end-date:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Contract end date if applicable
+                      title: ohana.common.schemas.public-api.scenario/contract-end-date
+                      example: '2024-12-31T00:00:00Z'
+                    team:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Team name
+                      title: ohana.common.schemas.public-api.scenario/team
+                      example: Growth Team
+                    initiative:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Initiative name
+                      title: ohana.common.schemas.public-api.scenario/initiative
+                      example: AI Platform
+                    scenario-name:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Name of the scenario
+                      title: ohana.common.schemas.public-api.scenario/scenario-name
+                      example: Annual Budget Plan
+                    employment-end-date:
+                      oneOf:
+                      - type: string
+                        format: date-time
+                      - type: 'null'
+                      description: Employment end date
+                      title: ohana.common.schemas.public-api.scenario/employment-end-date
+                      example: '2025-12-31T00:00:00Z'
+                    teamohana-id:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: TeamOhana Employee ID
+                      title: ohana.common.schemas.public-api.scenario/teamohana-id
+                      example: TO-5678
+                    justification:
+                      oneOf:
+                      - type: string
+                      - type: 'null'
+                      description: Justification for headcount
+                      title: ohana.common.schemas.public-api.scenario/justification
+                      example: New hire for Q4 expansion
+                  title: ohana.common.schemas.public-api.scenario/export-row
+                description: List of export records
+                example:
+                - headcount-id: GH-292
+                  scenario-name: Updating budget comp
+                  pay-rate: YEAR
+                  department: Account Management
+                  entity-type: headcount
+                  variable: null
+                  equity: null
+                  contract-end-date: null
+                  remaining-budget: -231240.0
+                  job-id: ''
+                  division: Sales
+                  job-role: Mid-Market Account Manager II
+                  target-start-date: '2025-07-01T00:00:00Z'
+                  initiative: Backfill (2025 Promo/Transfer)
+                  employee-type: Full time
+                  job-title: Mid-Market Account Manager II
+                  target-base: 103400.0
+                  scenario-id: SC-7
+                  teamohana-id: null
+                  target-impact: 231240.0
+                  justification: Deleted code is debugged code. -Jeff Sickel
+                  team: Sales
+                  priority: High
+                  pay-currency: USD
+                  status: Hired
+                  budget-impact: 0
+                  employee-name: null
+                  headcount-type: Backfill
+                  opening-id: ''
+                  target-variable: 84600.0
+                  job-level: P3
+                  equity-currency: null
+                  target-equity: 0.0
+                  base: null
+                  budget-type: Budgeted
+                  backfill-employee: Fred Lakin
+                  location: United States of America
+                  reporting-manager: Alex Rogahn
+                  hris-employee-id: null
+                - headcount-id: ''
+                  scenario-name: Updating budget comp
+                  pay-rate: YEAR
+                  department: Platform
+                  entity-type: employee
+                  variable: 10667.0
+                  equity: null
+                  contract-end-date: null
+                  remaining-budget: null
+                  job-id: ''
+                  division: Engineering
+                  job-role: null
+                  target-start-date: '2021-11-16T00:00:00Z'
+                  initiative: null
+                  employee-type: Regular
+                  job-title: Senior Data Engineer II
+                  target-base: null
+                  scenario-id: SC-7
+                  teamohana-id: TO-1410
+                  target-impact: null
+                  justification: null
+                  team: null
+                  priority: null
+                  pay-currency: USD
+                  status: null
+                  budget-impact: null
+                  employee-name: Lecia Wolf
+                  headcount-type: null
+                  opening-id: ''
+                  target-variable: null
+                  job-level: P4
+                  equity-currency: null
+                  target-equity: null
+                  base: 191492.45
+                  budget-type: null
+                  backfill-employee: null
+                  location: Distributed - TX
+                  reporting-manager: Zoraida Gleichner
+                  hris-employee-id: '983'
+                title: ohana.common.schemas.public-api.scenario/rows
+            text/csv:
+              schema:
+                type: string
+      tags:
+      - Scenario
+      summary: Fetch headcount and employees within the scenario
+      description: Get a list of all headcount and employees within the scenario.
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+x-id:
+- reitit.openapi/default
