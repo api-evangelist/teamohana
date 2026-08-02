@@ -1,0 +1,45 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/teamohana-openapi-original.json
+docs: https://api.teamohana.us/faq/index.html
+format: mixed
+notes: >-
+  SCIM endpoints return the SCIM 2.0 error object
+  (urn:ietf:params:scim:api:messages:2.0:Error) with `status` and `detail`.
+  Headcount/Discovery/Scenario endpoints return an HTTP status code with a
+  descriptive JSON message. Derived from the OpenAPI 4xx/5xx responses.
+problems:
+- status: 400
+  title: Bad Request
+  detail: Request does not conform to the SCIM standard. Check for typos or missing fields.
+  surface: SCIM
+  source_operations:
+  - 'GET/PUT/DELETE openapi/teamohana-openapi-original.json#/{domain}/Users/{id}'
+  - 'GET/POST openapi/teamohana-openapi-original.json#/{domain}/Users'
+- status: 401
+  title: Unauthorized
+  detail: Request does not contain valid credentials.
+  surface: Headcount/Discovery/Scenario
+  source_operations:
+  - 'GET/POST openapi/teamohana-openapi-original.json#/{domain}/v1/headcount'
+  - 'GET openapi/teamohana-openapi-original.json#/{domain}/v1/plans'
+  - 'GET openapi/teamohana-openapi-original.json#/{domain}/v1/scenarios'
+- status: 404
+  title: Not Found
+  detail: The requested resource (user or scenario) was not found.
+  surface: SCIM/Scenario
+  source_operations:
+  - 'GET/PUT/DELETE openapi/teamohana-openapi-original.json#/{domain}/Users/{id}'
+  - 'GET openapi/teamohana-openapi-original.json#/{domain}/v1/scenarios/{id}/export'
+- status: 409
+  title: Conflict
+  detail: A user with the supplied identifier already exists.
+  surface: SCIM
+  source_operations:
+  - 'POST openapi/teamohana-openapi-original.json#/{domain}/Users'
+- status: 500
+  title: Internal Server Error
+  detail: Something went wrong at TeamOhana. Please contact support.
+  surface: all
+  source_operations:
+  - all operations

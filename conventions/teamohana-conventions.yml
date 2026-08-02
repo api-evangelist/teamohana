@@ -1,0 +1,52 @@
+generated: '2026-07-21'
+method: searched
+source: https://api.teamohana.us/faq/index.html
+spec: openapi/teamohana-openapi-original.json
+authentication:
+  style: bearer-token
+  header: Authorization
+  format: 'Bearer YOUR_API_KEY'
+  notes: SCIM and Headcount APIs use separate API keys.
+  ref: authentication/teamohana-authentication.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  evidence: Headcount/Discovery/Scenario paths are prefixed /{domain}/v1/...
+  notes: SCIM endpoints follow the SCIM 2.0 path layout under /{domain}/.
+tenancy:
+  style: path-template
+  param: domain
+  evidence: Every path is templated as /{domain}/... where {domain} is the customer domain name.
+pagination:
+  style: none-documented
+  notes: >-
+    List endpoints (headcount, users, plans, departments, divisions, scenarios)
+    return JSON arrays. No cursor/offset pagination is documented; result sets are
+    narrowed with query-string filters instead.
+filtering:
+  style: query-string
+  params:
+  - plan-id
+  - hiring-plan-active
+  - headcount-status
+  - hiring-status
+  - department
+  - division
+  notes: Applies to the Headcount endpoint; a Plans Discovery endpoint supplies plan-id values.
+formats:
+  request: application/json
+  response:
+  - application/json
+  - text/csv
+  notes: Scenario export and some Headcount responses can return CSV.
+idempotency:
+  supported: false
+  notes: No idempotency-key header or contract is documented.
+error_envelope:
+  style: mixed
+  scim: 'SCIM 2.0 error object (urn:ietf:params:scim:api:messages:2.0:Error) with status + detail.'
+  headcount: HTTP status code plus a descriptive JSON message.
+  ref: errors/teamohana-problem-types.yml
+rate_limiting:
+  limit: 5 requests per second (global)
+  ref: rate-limits/teamohana-rate-limits.yml

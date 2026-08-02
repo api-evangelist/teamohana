@@ -1,0 +1,20 @@
+{
+  "provider": "teamohana",
+  "sources": [
+    "teamohana-discovery-api-openapi.yml",
+    "teamohana-headcount-api-openapi.yml",
+    "teamohana-scenario-api-openapi.yml",
+    "teamohana-scim-api-openapi.yml"
+  ],
+  "outputs": [
+    "teamohana-discovery-api-openapi.yml",
+    "teamohana-headcount-api-openapi.yml",
+    "teamohana-scenario-api-openapi.yml",
+    "teamohana-scim-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

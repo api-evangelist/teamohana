@@ -1,0 +1,24 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for TeamOhana Public API
+  version: 1.0.0
+extends: openapi/teamohana-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-rating: 3
+    x-apievangelist-notes: >-
+      SCIM 2.0 + Headcount/Discovery/Scenario REST API, bearer-token auth, 5 req/sec
+      global rate limit. Operations lack operationIds and the spec declares no
+      servers[] — recommend adding both.
+- target: $.servers
+  update:
+  - url: https://api.teamohana.us/{domain}
+    description: TeamOhana Public API (production). {domain} is the customer domain name.
+    variables:
+      domain:
+        default: your-domain
+        description: Your TeamOhana domain name.
+- target: $.info
+  update:
+    x-agentic-access: agentic-access/teamohana-agentic-access.yml

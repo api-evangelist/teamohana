@@ -1,0 +1,21 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/teamohana-openapi-original.json
+docs: https://api.teamohana.us/faq/index.html
+notes: >-
+  Bearer token authentication via the Authorization header
+  (`Authorization: Bearer YOUR_API_KEY`). Per the API FAQ, the SCIM API and the
+  Headcount API use SEPARATE API keys — ensure the correct key is used for each
+  surface. Keys are provisioned by TeamOhana; contact support to obtain them.
+summary:
+  types:
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: Authorization
+  type: http
+  scheme: bearer
+  bearer_format: api-key
+  sources:
+  - openapi/teamohana-openapi-original.json

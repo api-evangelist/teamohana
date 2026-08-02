@@ -1,0 +1,57 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/teamohana-openapi-original.json
+docs: https://api.teamohana.us/faq/index.html
+notes: >-
+  Entity graph derived from the Public API resources and their id-reference fields.
+  All resources are scoped to a tenant {domain}. Ids observed include headcount-id
+  (e.g. ORG-123) and opening-id (e.g. 1234-123).
+entities:
+- name: User
+  surface: SCIM
+  key: id
+  description: A SCIM 2.0 user representing a person in the TeamOhana workspace.
+- name: Headcount
+  surface: Headcount
+  key: headcount-id
+  description: A planned/approved/actual position with hiring status, department, division, salary/equity budget, and dates.
+- name: HiringPlan
+  surface: Discovery
+  key: plan-id
+  description: A hiring plan; supplies the plan-id used to filter headcount.
+- name: Department
+  surface: Discovery
+  key: department
+  description: An organizational department.
+- name: Division
+  surface: Discovery
+  key: division
+  description: An organizational division.
+- name: Scenario
+  surface: Scenario
+  key: id
+  description: A headcount planning scenario that groups headcount and employees.
+- name: Employee
+  surface: Scenario
+  description: An employee record surfaced within a scenario export.
+relationships:
+- from: Headcount
+  to: HiringPlan
+  type: belongs_to
+  via: plan-id
+- from: Headcount
+  to: Department
+  type: belongs_to
+  via: department
+- from: Headcount
+  to: Division
+  type: belongs_to
+  via: division
+- from: Scenario
+  to: Headcount
+  type: has_many
+  via: scenario export
+- from: Scenario
+  to: Employee
+  type: has_many
+  via: scenario export

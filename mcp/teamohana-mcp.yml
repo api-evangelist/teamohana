@@ -1,0 +1,54 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: openapi/teamohana-openapi-original.json
+notes: >-
+  No official hosted/remote MCP server was found for TeamOhana. This is a CANDIDATE
+  tool list derived one-to-one from the Public API operations (bearer-token auth;
+  {domain} = the customer domain). Not an authoritative provider claim.
+server:
+  name: teamohana
+  transport: http
+tools:
+- name: get_service_provider_config
+  description: Fetch SCIM server capabilities.
+  source_operation: openapi/teamohana-openapi-original.json#GET /{domain}/ServiceProviderConfig
+- name: list_users
+  description: Fetch all SCIM users in TeamOhana.
+  source_operation: openapi/teamohana-openapi-original.json#GET /{domain}/Users
+- name: get_user
+  description: Fetch a single SCIM user by id.
+  source_operation: openapi/teamohana-openapi-original.json#GET /{domain}/Users/{id}
+- name: create_user
+  description: Create a SCIM user.
+  source_operation: openapi/teamohana-openapi-original.json#POST /{domain}/Users
+- name: update_user
+  description: Update a SCIM user.
+  source_operation: openapi/teamohana-openapi-original.json#PUT /{domain}/Users/{id}
+- name: delete_user
+  description: Delete a SCIM user.
+  source_operation: openapi/teamohana-openapi-original.json#DELETE /{domain}/Users/{id}
+- name: list_headcount
+  description: Fetch headcount / forecast data (filterable by plan, status, department, division).
+  source_operation: openapi/teamohana-openapi-original.json#GET /{domain}/v1/headcount
+- name: query_headcount
+  description: Query headcount data via POST body.
+  source_operation: openapi/teamohana-openapi-original.json#POST /{domain}/v1/headcount
+- name: upload_headcount_to_pigment
+  description: Generate a headcount CSV and upload it to Pigment.
+  source_operation: openapi/teamohana-openapi-original.json#POST /{domain}/v1/headcount/upload/pigment
+- name: list_plans
+  description: List hiring plans (Discovery).
+  source_operation: openapi/teamohana-openapi-original.json#GET /{domain}/v1/plans
+- name: list_departments
+  description: List departments (Discovery).
+  source_operation: openapi/teamohana-openapi-original.json#GET /{domain}/v1/departments
+- name: list_divisions
+  description: List divisions (Discovery).
+  source_operation: openapi/teamohana-openapi-original.json#GET /{domain}/v1/divisions
+- name: list_scenarios
+  description: List all headcount scenarios.
+  source_operation: openapi/teamohana-openapi-original.json#GET /{domain}/v1/scenarios
+- name: export_scenario
+  description: Fetch headcount and employees within a scenario.
+  source_operation: openapi/teamohana-openapi-original.json#GET /{domain}/v1/scenarios/{id}/export

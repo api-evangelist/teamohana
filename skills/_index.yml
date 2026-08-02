@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/teamohana-openapi-original.json
+skills:
+- file: teamohana-pull-headcount.md
+  name: Pull TeamOhana headcount and forecast data
+  api: openapi/teamohana-openapi-original.json
+  operations:
+  - GET /{domain}/v1/plans
+  - GET /{domain}/v1/departments
+  - GET /{domain}/v1/divisions
+  - GET /{domain}/v1/headcount
+- file: teamohana-scim-provision-user.md
+  name: Provision a user in TeamOhana via SCIM 2.0
+  api: openapi/teamohana-openapi-original.json
+  operations:
+  - GET /{domain}/ServiceProviderConfig
+  - GET /{domain}/Users
+  - POST /{domain}/Users
+  - GET /{domain}/Users/{id}
+  - PUT /{domain}/Users/{id}
+  - DELETE /{domain}/Users/{id}

@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/teamohana-openapi-original.json
+docs: https://api.teamohana.us/faq/index.html
+standards:
+- id: scim-2.0
+  conforms: true
+  evidence: >-
+    Exposes SCIM 2.0 resources — /{domain}/ServiceProviderConfig and /{domain}/Users
+    (fetch/create/update/delete) — and returns the SCIM 2.0 error object
+    urn:ietf:params:scim:api:messages:2.0:Error. Documented SCIM provisioning with Okta.
+- id: oauth2
+  conforms: false
+- id: openid-connect
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: SCIM uses its own error object; non-SCIM errors are plain JSON messages, not application/problem+json.
+- id: http-bearer-auth
+  conforms: true
+  evidence: securityScheme type http scheme bearer applied globally.
+- id: rest-json
+  conforms: true
+  evidence: JSON request/response over REST resources (CSV also offered for exports).
+- id: soc2
+  conforms: true
+  evidence: SOC 2 certification published at https://trust.teamohana.com/
+- id: iso-27001
+  conforms: true
+  evidence: ISO 27001 certification published at https://trust.teamohana.com/

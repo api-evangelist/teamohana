@@ -1,0 +1,13 @@
+generated: '2026-07-21'
+method: searched
+source: https://api.teamohana.us/faq/index.html
+summary: >-
+  The TeamOhana Public API enforces a global rate limit of 5 requests per second.
+  Limit adjustments can be requested from the TeamOhana support team.
+limits:
+- scope: global
+  limit_count: 5
+  window: second
+  description: 5 requests per second across the Public API.
+  adjustable: true
+  adjust_via: support

@@ -1,8 +1,29 @@
 aid: teamohana
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/teamohana.png
 name: TeamOhana
-description: 'TeamOhana is a company surfaced as a portfolio company of sierra-ventures and added to the
-  API Evangelist network as a stub for enrichment. Sector: hr-tech. This profile is a lead awaiting the
-  enrichment pipeline.'
+description: 'TeamOhana is an HR-technology company that provides a headcount management
+  and planning platform serving as a single source of truth for a company''s people
+  budget. It connects Finance, HR, and Talent Acquisition teams around real-time,
+  approved headcount so organizations can plan, track, and control hiring against
+  budget in one collaborative workflow rather than across disconnected spreadsheets.
+  The platform integrates with HRIS, ATS, and financial planning systems (Workday,
+  SAP SuccessFactors, Bamboo HR, HiBob, UKG, Personio, Namely, Greenhouse-class ATS,
+  and Pigment). Its Public API exposes SCIM 2.0 user provisioning plus Headcount,
+  Discovery, and Scenario endpoints for planning and reporting. TeamOhana is backed
+  by Sierra Ventures and runs a security program that is SOC 2 and ISO 27001 certified
+  (verified via its public trust center).'
 url: https://raw.githubusercontent.com/api-evangelist/teamohana/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -12,16 +33,137 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
 - Hr Tech
-apis: []
+- Headcount Management
+- Headcount Planning
+- Workforce Planning
+- Human Resources
+- Talent Acquisition
+- Finance
+- SCIM
+- SaaS
+apis:
+- aid: teamohana:teamohana-discovery-api
+  name: TeamOhana Discovery API
+  description: The Discovery API from TeamOhana — 3 operation(s) for discovery.
+  humanURL: https://api.teamohana.us/faq/index.html
+  baseURL: https://api.teamohana.us
+  tags:
+  - Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/teamohana-discovery-api-openapi.yml
+  - type: Documentation
+    url: https://api.teamohana.us/faq/index.html
+  - type: APIReference
+    url: https://api.teamohana.us/faq/index.html
+- aid: teamohana:teamohana-headcount-api
+  name: TeamOhana Headcount API
+  description: The Headcount API from TeamOhana — 2 operation(s) for headcount.
+  humanURL: https://api.teamohana.us/faq/index.html
+  baseURL: https://api.teamohana.us
+  tags:
+  - Headcount
+  properties:
+  - type: OpenAPI
+    url: openapi/teamohana-headcount-api-openapi.yml
+  - type: Documentation
+    url: https://api.teamohana.us/faq/index.html
+  - type: APIReference
+    url: https://api.teamohana.us/faq/index.html
+- aid: teamohana:teamohana-scenario-api
+  name: TeamOhana Scenario API
+  description: The Scenario API from TeamOhana — 2 operation(s) for scenario.
+  humanURL: https://api.teamohana.us/faq/index.html
+  baseURL: https://api.teamohana.us
+  tags:
+  - Scenario
+  properties:
+  - type: OpenAPI
+    url: openapi/teamohana-scenario-api-openapi.yml
+  - type: Documentation
+    url: https://api.teamohana.us/faq/index.html
+  - type: APIReference
+    url: https://api.teamohana.us/faq/index.html
+- aid: teamohana:teamohana-scim-api
+  name: TeamOhana SCIM API
+  description: The SCIM API from TeamOhana — 3 operation(s) for scim.
+  humanURL: https://api.teamohana.us/faq/index.html
+  baseURL: https://api.teamohana.us
+  tags:
+  - SCIM
+  properties:
+  - type: OpenAPI
+    url: openapi/teamohana-scim-api-openapi.yml
+  - type: Documentation
+    url: https://api.teamohana.us/faq/index.html
+  - type: APIReference
+    url: https://api.teamohana.us/faq/index.html
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: OpenAPI
+  url: openapi/teamohana-openapi-original.json
+- type: Authentication
+  url: authentication/teamohana-authentication.yml
+- type: Conventions
+  url: conventions/teamohana-conventions.yml
+- type: RateLimits
+  url: rate-limits/teamohana-rate-limits.yml
+- type: ErrorCatalog
+  url: errors/teamohana-problem-types.yml
+- type: Conformance
+  url: conformance/teamohana-conformance.yml
+- type: DataModel
+  url: data-model/teamohana-data-model.yml
+- type: Lifecycle
+  url: lifecycle/teamohana-lifecycle.yml
+- type: StatusPage
+  url: https://status.teamohana.us/
+- type: MCPServer
+  url: mcp/teamohana-mcp.yml
+- type: LLMsTxt
+  url: llms/teamohana-llms.txt
+- type: Overlay
+  url: overlays/teamohana-openapi-overlay.yaml
+- type: AgenticAccess
+  url: agentic-access/teamohana-agentic-access.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Documentation
+  url: https://api.teamohana.us/faq/index.html
+- type: APIReference
+  url: https://api.teamohana.us/faq/index.html
+- type: TrustCenter
+  url: security/teamohana-trust-center.yml
+- type: Compliance
+  url: https://trust.teamohana.com/
+- type: DomainSecurity
+  url: security/teamohana-domain-security.yml
+- type: Integrations
+  url: https://www.teamohana.com/features/integrations
+- type: Pricing
+  url: https://www.teamohana.com/pricing
+- type: Blog
+  url: https://www.teamohana.com/blogs
+- type: PrivacyPolicy
+  url: https://www.teamohana.com/privacy-policy
+- type: TermsOfService
+  url: https://www.teamohana.com/terms-and-conditions
+- type: SignUp
+  url: https://www.teamohana.com/book-demo
+- type: Support
+  url: https://www.teamohana.com/contact-us
 - type: Website
   url: https://teamohana.com/
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 13
+  pass: local-v1
