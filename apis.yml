@@ -109,7 +109,7 @@ maintainers:
   email: info@apis.io
 common:
 - type: OpenAPI
-  url: openapi/teamohana-openapi-original.json
+  url: openapi/_original/teamohana-openapi-original.json
 - type: Authentication
   url: authentication/teamohana-authentication.yml
 - type: Conventions
