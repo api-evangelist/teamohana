@@ -1,0 +1,485 @@
+{
+  "item": [
+    {
+      "id": "2f844fbf-18c2-4d62-987c-f54f7ef6d717",
+      "name": "Scenario",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ed387d4a-8ea1-4d49-8669-4cbcbba5fa26",
+          "name": "List all scenarios",
+          "request": {
+            "name": "List all scenarios",
+            "description": {
+              "content": "Get a list of all scenarios accessible to the API key owner.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":domain",
+                "v1",
+                "scenarios"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ddb79e0-61f0-472f-b652-dad3e1b719f5",
+              "name": "A list response containing all scenarios.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "scenarios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"Next Year Planning\",\n    \"type\": \"Modify plan\",\n    \"status\": \"draft\",\n    \"updated-at\": \"2026-02-04T10:11:05Z\",\n    \"created-at\": \"2026-01-04T23:23:05Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d33c1f78-c4fe-45d7-b42e-da9c90f2ffa2",
+              "name": "Request does not contain valid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "scenarios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ca7511a-1a7c-4687-8835-89a5925d4757",
+              "name": "Something went wrong at TeamOhana. Please contact support.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "scenarios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d11e3605-fdd6-43f0-b69d-f519a4f878d4",
+          "name": "Fetch headcount and employees within the scenario",
+          "request": {
+            "name": "Fetch headcount and employees within the scenario",
+            "description": {
+              "content": "Get a list of all headcount and employees within the scenario.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":domain",
+                "v1",
+                "scenarios",
+                ":id",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb044442-8df2-4ec3-ba6f-63c492d26fb9",
+              "name": "A list response containing all headcount and employees within the scenario.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "scenarios",
+                    ":id",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"employee-type\": \"string\",\n    \"department\": \"string\",\n    \"equity\": 4882.620303770647,\n    \"target-variable\": 2814.699985946566,\n    \"priority\": \"Low\",\n    \"entity-type\": \"employee\",\n    \"target-equity\": 8170.789534785895,\n    \"target-base\": 5477.301985636219,\n    \"opening-id\": \"string\",\n    \"sub-team-field\": \"string\",\n    \"reporting-manager\": \"string\",\n    \"target-bonus-perc\": 5130.046917638744,\n    \"headcount-type\": \"string\",\n    \"budget-type\": \"string\",\n    \"base\": 8636.628542724897,\n    \"sub-team-archived\": false,\n    \"job-id\": \"string\",\n    \"pay-currency\": \"string\",\n    \"target-start-date\": \"string\",\n    \"scenario-id\": \"string\",\n    \"division\": \"string\",\n    \"hris-employee-id\": \"string\",\n    \"remaining-budget\": 8007.98148458836,\n    \"job-level\": \"string\",\n    \"location\": \"string\",\n    \"status\": \"string\",\n    \"variable\": 6252.797544969823,\n    \"pay-rate\": \"string\",\n    \"target-bonus\": 6229.47981929138,\n    \"job-title\": \"string\",\n    \"backfill-employee\": \"string\",\n    \"sub-team-employee\": \"string\",\n    \"budget-impact\": 8472.019776601335,\n    \"employee-name\": \"string\",\n    \"job-role\": \"string\",\n    \"target-impact\": 7617.646284647707,\n    \"equity-currency\": \"string\",\n    \"contract-end-date\": \"string\",\n    \"team\": \"string\",\n    \"initiative\": \"string\",\n    \"scenario-name\": \"string\",\n    \"employment-end-date\": \"2001-09-16T13:16:48.352Z\",\n    \"teamohana-id\": \"string\",\n    \"justification\": \"string\"\n  },\n  {\n    \"employee-type\": \"string\",\n    \"department\": \"string\",\n    \"equity\": 1191.347270157449,\n    \"target-variable\": 4978.6748858984465,\n    \"priority\": \"Low\",\n    \"entity-type\": \"employee\",\n    \"target-equity\": 6196.715147296603,\n    \"target-base\": 2170.4331123681486,\n    \"opening-id\": \"string\",\n    \"sub-team-field\": \"string\",\n    \"reporting-manager\": \"string\",\n    \"target-bonus-perc\": 8891.868644301838,\n    \"headcount-type\": \"string\",\n    \"budget-type\": \"string\",\n    \"base\": 865.9323443163491,\n    \"sub-team-archived\": false,\n    \"job-id\": \"string\",\n    \"pay-currency\": \"string\",\n    \"target-start-date\": \"string\",\n    \"scenario-id\": \"string\",\n    \"division\": \"string\",\n    \"hris-employee-id\": \"string\",\n    \"remaining-budget\": 9162.07607869028,\n    \"job-level\": \"string\",\n    \"location\": \"string\",\n    \"status\": \"string\",\n    \"variable\": 8318.898563726301,\n    \"pay-rate\": \"string\",\n    \"target-bonus\": 1660.8654988290639,\n    \"job-title\": \"string\",\n    \"backfill-employee\": \"string\",\n    \"sub-team-employee\": \"string\",\n    \"budget-impact\": 7898.59866748523,\n    \"employee-name\": \"string\",\n    \"job-role\": \"string\",\n    \"target-impact\": 173.56568639965596,\n    \"equity-currency\": \"string\",\n    \"contract-end-date\": \"string\",\n    \"team\": \"string\",\n    \"initiative\": \"string\",\n    \"scenario-name\": \"string\",\n    \"employment-end-date\": \"2020-04-03T22:29:01.218Z\",\n    \"teamohana-id\": \"string\",\n    \"justification\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63fe5d55-23c6-4ee7-9411-ccf5cf99758a",
+              "name": "No such resource found or access denied. Please check the id.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "scenarios",
+                    ":id",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77af3d09-1da2-458f-8e79-a9e88791cc3a",
+              "name": "Something went wrong at TeamOhana. Please contact support.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "scenarios",
+                    ":id",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5f3207bb-8e16-4d8c-986c-3260e8dd197b",
+    "name": "TeamOhana Public Discovery Scenario API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Refer to the [API FAQ](/faq) for more details on the usage.\n\nNote: API keys for the SCIM API and the Headcount API are different. Please make sure you are using the right keys.",
+      "type": "text/plain"
+    }
+  }
+}

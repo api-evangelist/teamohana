@@ -1,0 +1,494 @@
+{
+  "item": [
+    {
+      "id": "0f0932b5-16ef-42c2-a76a-4ad3cfdc73cc",
+      "name": "Discovery",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aa6697fc-47fa-4110-b96e-fbae46562ada",
+          "name": "List hiring plans",
+          "request": {
+            "name": "List hiring plans",
+            "description": {
+              "content": "Returns all hiring plans for the org. Use the returned id to filter GET /v1/headcount by plan.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":domain",
+                "v1",
+                "plans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "be8ffbeb-2382-45f1-86d1-136a120be026",
+              "name": "List of hiring plans.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"b8e6a91c-de5d-a168-a4dd-43a3271d48b3\",\n    \"name\": \"string\",\n    \"is-active\": false,\n    \"start-date\": \"1974-12-26T16:05:08.963Z\",\n    \"end-date\": \"1988-04-23T18:25:01.326Z\"\n  },\n  {\n    \"id\": \"96711969-5eec-6771-efc1-11a6d3855759\",\n    \"name\": \"string\",\n    \"is-active\": true,\n    \"start-date\": \"2017-12-07T08:02:39.079Z\",\n    \"end-date\": \"1965-08-31T10:57:36.633Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59557db3-bf14-42ea-a4f4-d6546b9310ed",
+              "name": "Request does not contain valid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a50d6eef-ffb0-4544-b165-5396567eb91a",
+          "name": "List departments",
+          "request": {
+            "name": "List departments",
+            "description": {
+              "content": "Returns all departments with their parent division. Use the returned id to filter GET /v1/headcount by department.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":domain",
+                "v1",
+                "departments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cba4df1b-4049-4ec3-a6df-78271efd65ac",
+              "name": "List of departments with division info.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "departments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"84882f21-db28-b39a-2706-de39f9fd3c05\",\n    \"name\": \"string\",\n    \"division-id\": \"126a7d83-2929-2d8c-bb30-1fa2cb8fcc07\",\n    \"division-name\": \"string\"\n  },\n  {\n    \"id\": \"60b3539e-5cee-8f54-febc-e005a24c7c71\",\n    \"name\": \"string\",\n    \"division-id\": \"ad8322d0-0e19-ca74-958a-5aceeb3bb4d3\",\n    \"division-name\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09841600-060a-4748-a6f2-e5e320ef4816",
+              "name": "Request does not contain valid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "departments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc436e05-e946-424b-a60c-3d887b5ca3b6",
+          "name": "List divisions",
+          "request": {
+            "name": "List divisions",
+            "description": {
+              "content": "Returns all divisions. Use the returned id to filter GET /v1/headcount by division.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":domain",
+                "v1",
+                "divisions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9ebbdff6-96ea-4def-a03f-3e39efc39ed1",
+              "name": "List of divisions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "divisions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"61738b06-9562-0de0-e3bb-0dfefa55d695\",\n    \"name\": \"string\"\n  },\n  {\n    \"id\": \"8615786e-61be-ca9d-f4e3-f8a0a606a20c\",\n    \"name\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b04176b1-2d61-48f0-ac56-520411bd371a",
+              "name": "Request does not contain valid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "divisions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bd47780b-eb23-48f9-930b-790940bd7d42",
+    "name": "TeamOhana Public Discovery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Refer to the [API FAQ](/faq) for more details on the usage.\n\nNote: API keys for the SCIM API and the Headcount API are different. Please make sure you are using the right keys.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TeamOhana Public Discovery Scenario API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Scenario",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all scenarios",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:domain/v1/scenarios",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a list of all scenarios accessible to the API key owner."
+        },
+        {
+          "info": {
+            "name": "Fetch headcount and employees within the scenario",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:domain/v1/scenarios/:id/export",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a list of all headcount and employees within the scenario."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

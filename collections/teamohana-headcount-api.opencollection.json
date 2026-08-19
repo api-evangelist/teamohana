@@ -1,0 +1,142 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TeamOhana Public Discovery Headcount API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Headcount",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch all the headcount in TeamOhana.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:domain/v1/headcount",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "plan-id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by hiring plan UUID. Get IDs from GET /v1/plans."
+              },
+              {
+                "name": "hc-status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by headcount status code. Repeatable for OR. Valid values: in-approval, approved, denied, closed, archived."
+              },
+              {
+                "name": "hc-hiring-status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by hiring status code. Repeatable for OR. Valid values: not-started, ready-to-hire, in-progress, offer-sent, hired."
+              },
+              {
+                "name": "department-id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by department. Pass the id returned by GET /v1/departments (a division-department UUID that uniquely identifies a department within a division)."
+              },
+              {
+                "name": "division-id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by division UUID. Get IDs from GET /v1/divisions. When combined with department-id, returns the union."
+              }
+            ]
+          },
+          "docs": "Get a list of all valid headcount that exists in TeamOhana. Supports optional filtering by plan, status, hiring status, department, and division. Response format is selected via the Accept header (`application/json` default, `text/csv` for a downloadable CSV). Refer to the [Headcount Data API FAQ](/faq/index.html#headcount-data-api) for more details."
+        },
+        {
+          "info": {
+            "name": "Fetch all the headcount in TeamOhana.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/:domain/v1/headcount",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "plan-id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by hiring plan UUID. Get IDs from GET /v1/plans."
+              },
+              {
+                "name": "hc-status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by headcount status code. Repeatable for OR. Valid values: in-approval, approved, denied, closed, archived."
+              },
+              {
+                "name": "hc-hiring-status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by hiring status code. Repeatable for OR. Valid values: not-started, ready-to-hire, in-progress, offer-sent, hired."
+              },
+              {
+                "name": "department-id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by department. Pass the id returned by GET /v1/departments (a division-department UUID that uniquely identifies a department within a division)."
+              },
+              {
+                "name": "division-id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by division UUID. Get IDs from GET /v1/divisions. When combined with department-id, returns the union."
+              }
+            ]
+          },
+          "docs": "Get a list of all valid headcount that exists in TeamOhana. Supports optional filtering by plan, status, hiring status, department, and division. Refer to the [Headcount Data API FAQ](/faq/index.html#headcount-data-api) for more details."
+        },
+        {
+          "info": {
+            "name": "Generate headcount CSV and upload it to pigment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/:domain/v1/headcount/upload/pigment",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate the headcount CSV and trigger an async upload to Pigment. Optionally pass time-period in the body (currently only `\"this-year\"` is supported) to scope the CSV to the org's current fiscal year. Refer to the [Pigment Connector API FAQ](/faq/index.html#pigment-connector-api) for more details."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

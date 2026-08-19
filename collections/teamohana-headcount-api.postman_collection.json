@@ -1,0 +1,814 @@
+{
+  "item": [
+    {
+      "id": "dbd1a2d8-671e-476e-9a4e-266e82157bf0",
+      "name": "Headcount",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ed065521-bdf5-4f86-a3a2-a62aaa5be516",
+          "name": "Fetch all the headcount in TeamOhana.",
+          "request": {
+            "name": "Fetch all the headcount in TeamOhana.",
+            "description": {
+              "content": "Get a list of all valid headcount that exists in TeamOhana. Supports optional filtering by plan, status, hiring status, department, and division. Response format is selected via the Accept header (`application/json` default, `text/csv` for a downloadable CSV). Refer to the [Headcount Data API FAQ](/faq/index.html#headcount-data-api) for more details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":domain",
+                "v1",
+                "headcount"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "plan-id",
+                  "value": "<uuid>",
+                  "description": "Filter by hiring plan UUID. Get IDs from GET /v1/plans."
+                },
+                {
+                  "disabled": false,
+                  "key": "department-id",
+                  "value": "<uuid>",
+                  "description": "Filter by department. Pass the id returned by GET /v1/departments (a division-department UUID that uniquely identifies a department within a division)."
+                },
+                {
+                  "disabled": false,
+                  "key": "division-id",
+                  "value": "<uuid>",
+                  "description": "Filter by division UUID. Get IDs from GET /v1/divisions. When combined with department-id, returns the union."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "afac452c-01a7-4066-b874-3ccb955df87a",
+              "name": "A list of headcounts as either a JSON array or a CSV file.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "headcount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "plan-id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "department-id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "division-id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"employee-name\": \"string\",\n    \"job-title\": \"string\",\n    \"division\": \"string\",\n    \"department\": \"string\",\n    \"job-level\": \"string\",\n    \"location\": \"string\",\n    \"employee-type\": \"string\",\n    \"reporting-manager\": \"string\",\n    \"target-start-date\": \"string\",\n    \"termination-date\": \"string\",\n    \"hiring-status\": \"Not started\",\n    \"headcount-approved-date\": \"string\",\n    \"target-variable\": 8908.971531007752,\n    \"target-equity-currency\": \"string\",\n    \"priority\": \"Normal\",\n    \"target-equity\": 8054.284397363841,\n    \"custom-fields\": {\n      \"key_0\": {\n        \"key_0\": {}\n      }\n    },\n    \"opening-id\": \"string\",\n    \"budget-equity\": 1243.170821668196,\n    \"headcount-id\": \"string\",\n    \"sourcers\": \"string\",\n    \"actual-bonus\": 8556.218549518095,\n    \"budget-salary\": 4059.957149334937,\n    \"termination-type\": \"string\",\n    \"recruiters\": \"string\",\n    \"annualized-budget-salary\": 2531.39641712806,\n    \"target-bonus-perc\": 8880.354657235515,\n    \"actual-equity\": 1818.6965047714198,\n    \"actual-variable\": 2080.0398278437983,\n    \"compensation-change-reason\": \"string\",\n    \"budget-job-level\": \"string\",\n    \"headcount-type\": \"New hire\",\n    \"id\": \"8f5c466d-ac64-ddb0-ff21-313c909eaa04\",\n    \"archived-justification\": \"string\",\n    \"archived-date\": \"string\",\n    \"headcount-display-id\": \"string\",\n    \"backfill-employee-email\": \"string\",\n    \"headcount-denied-date\": \"string\",\n    \"headcount-is-private\": false,\n    \"actual-bonus-perc\": 1020.8089062259252,\n    \"budget-start-date\": \"string\",\n    \"is-current\": false,\n    \"employee-email\": \"string\",\n    \"budget-pay-rate\": \"string\",\n    \"hris-employee-id\": \"string\",\n    \"job-name\": \"string\",\n    \"denied-justification\": \"string\",\n    \"hiring-plan-active\": true,\n    \"actual-salary\": 933.635813864494,\n    \"employee-id\": \"60f34f45-90c7-56d9-0bda-a673c5cdbafa\",\n    \"reporting-manager-email\": \"string\",\n    \"last-updated\": \"2006-07-13T02:45:14.396Z\",\n    \"headcount-status\": \"Approved\",\n    \"actual-equity-currency\": \"string\",\n    \"status\": \"Denied\",\n    \"actual-start-date\": \"string\",\n    \"target-open-date\": \"string\",\n    \"pay-rate\": \"string\",\n    \"target-bonus\": 5136.626077447568,\n    \"budget-currency\": \"string\",\n    \"future-termination\": true,\n    \"backfill-employee\": \"string\",\n    \"annualized-actual-salary\": 5063.399246656502,\n    \"backfill-employee-id\": \"string\",\n    \"track-management\": \"string\",\n    \"hris-employee-remote-id\": \"string\",\n    \"target-salary\": 8324.74025603733,\n    \"target-currency\": \"string\",\n    \"hiring-plan\": \"string\",\n    \"state\": \"string\",\n    \"annualized-target-salary\": 3239.6079683509292,\n    \"offer-sent-date\": \"string\",\n    \"actual-currency\": \"string\",\n    \"budget-variable\": 3606.999433821466,\n    \"pay-rate-multiplier\": 8368.026881206482,\n    \"termination-reconciled\": false,\n    \"job-role\": \"string\",\n    \"headcount-url\": \"string\",\n    \"reporting-manager-hris-employee-id\": \"string\",\n    \"offer-accept-date\": \"string\",\n    \"team\": \"string\",\n    \"approval-requested-date\": \"string\",\n    \"initiative\": \"string\",\n    \"job-function\": \"string\",\n    \"target-hire-date\": \"string\",\n    \"target-pay-rate\": \"string\",\n    \"employment-end-date\": \"string\",\n    \"teamohana-id\": \"string\",\n    \"coordinators\": \"string\",\n    \"justification\": \"string\",\n    \"termination-regrettable\": false\n  },\n  {\n    \"employee-name\": \"string\",\n    \"job-title\": \"string\",\n    \"division\": \"string\",\n    \"department\": \"string\",\n    \"job-level\": \"string\",\n    \"location\": \"string\",\n    \"employee-type\": \"string\",\n    \"reporting-manager\": \"string\",\n    \"target-start-date\": \"string\",\n    \"termination-date\": \"string\",\n    \"hiring-status\": \"In progress\",\n    \"headcount-approved-date\": \"string\",\n    \"target-variable\": 3922.1868248741566,\n    \"target-equity-currency\": \"string\",\n    \"priority\": \"Normal\",\n    \"target-equity\": 8988.83395072055,\n    \"custom-fields\": {\n      \"key_0\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {}\n      }\n    },\n    \"opening-id\": \"string\",\n    \"budget-equity\": 8482.206397087271,\n    \"headcount-id\": \"string\",\n    \"sourcers\": \"string\",\n    \"actual-bonus\": 25.249086399827814,\n    \"budget-salary\": 9591.04885442008,\n    \"termination-type\": \"string\",\n    \"recruiters\": \"string\",\n    \"annualized-budget-salary\": 9482.389671969122,\n    \"target-bonus-perc\": 7494.37399349564,\n    \"actual-equity\": 2761.81399344225,\n    \"actual-variable\": 4204.128834171605,\n    \"compensation-change-reason\": \"string\",\n    \"budget-job-level\": \"string\",\n    \"headcount-type\": \"Backfill\",\n    \"id\": \"5edcd71d-e08f-6199-4bbd-fcc89d24a4d8\",\n    \"archived-justification\": \"string\",\n    \"archived-date\": \"string\",\n    \"headcount-display-id\": \"string\",\n    \"backfill-employee-email\": \"string\",\n    \"headcount-denied-date\": \"string\",\n    \"headcount-is-private\": false,\n    \"actual-bonus-perc\": 1212.7924377109023,\n    \"budget-start-date\": \"string\",\n    \"is-current\": true,\n    \"employee-email\": \"string\",\n    \"budget-pay-rate\": \"string\",\n    \"hris-employee-id\": \"string\",\n    \"job-name\": \"string\",\n    \"denied-justification\": \"string\",\n    \"hiring-plan-active\": true,\n    \"actual-salary\": 8637.413790170896,\n    \"employee-id\": \"e907d05d-0119-34c6-2779-7efb34e625bd\",\n    \"reporting-manager-email\": \"string\",\n    \"last-updated\": \"1972-08-28T09:30:41.808Z\",\n    \"headcount-status\": \"Approved\",\n    \"actual-equity-currency\": \"string\",\n    \"status\": \"Approved\",\n    \"actual-start-date\": \"string\",\n    \"target-open-date\": \"string\",\n    \"pay-rate\": \"string\",\n    \"target-bonus\": 2361.1664831015723,\n    \"budget-currency\": \"string\",\n    \"future-termination\": true,\n    \"backfill-employee\": \"string\",\n    \"annualized-actual-salary\": 1714.4419159146196,\n    \"backfill-employee-id\": \"string\",\n    \"track-management\": \"string\",\n    \"hris-employee-remote-id\": \"string\",\n    \"target-salary\": 1648.3668217629388,\n    \"target-currency\": \"string\",\n    \"hiring-plan\": \"string\",\n    \"state\": \"string\",\n    \"annualized-target-salary\": 7511.982856785739,\n    \"offer-sent-date\": \"string\",\n    \"actual-currency\": \"string\",\n    \"budget-variable\": 829.6870253289867,\n    \"pay-rate-multiplier\": 8828.292436663527,\n    \"termination-reconciled\": false,\n    \"job-role\": \"string\",\n    \"headcount-url\": \"string\",\n    \"reporting-manager-hris-employee-id\": \"string\",\n    \"offer-accept-date\": \"string\",\n    \"team\": \"string\",\n    \"approval-requested-date\": \"string\",\n    \"initiative\": \"string\",\n    \"job-function\": \"string\",\n    \"target-hire-date\": \"string\",\n    \"target-pay-rate\": \"string\",\n    \"employment-end-date\": \"string\",\n    \"teamohana-id\": \"string\",\n    \"coordinators\": \"string\",\n    \"justification\": \"string\",\n    \"termination-regrettable\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84960309-1f8e-4250-ac72-c7416e82b256",
+              "name": "Request does not contain valid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "headcount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "plan-id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "department-id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "division-id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58acdf7d-4383-4cef-83d5-b4d277ce607e",
+              "name": "Something went wrong at TeamOhana. Please contact support.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "headcount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "plan-id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "department-id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "division-id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7cfb9718-2984-4e08-9ea6-7e533d6e0cf2",
+          "name": "Fetch all the headcount in TeamOhana.",
+          "request": {
+            "name": "Fetch all the headcount in TeamOhana.",
+            "description": {
+              "content": "Get a list of all valid headcount that exists in TeamOhana. Supports optional filtering by plan, status, hiring status, department, and division. Refer to the [Headcount Data API FAQ](/faq/index.html#headcount-data-api) for more details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":domain",
+                "v1",
+                "headcount"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "plan-id",
+                  "value": "<uuid>",
+                  "description": "Filter by hiring plan UUID. Get IDs from GET /v1/plans."
+                },
+                {
+                  "disabled": false,
+                  "key": "department-id",
+                  "value": "<uuid>",
+                  "description": "Filter by department. Pass the id returned by GET /v1/departments (a division-department UUID that uniquely identifies a department within a division)."
+                },
+                {
+                  "disabled": false,
+                  "key": "division-id",
+                  "value": "<uuid>",
+                  "description": "Filter by division UUID. Get IDs from GET /v1/divisions. When combined with department-id, returns the union."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4033249a-b807-43f8-a99a-f292fc7d5227",
+              "name": "A list response containing all the headcount.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "headcount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "plan-id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "department-id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "division-id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"employee-name\": \"string\",\n    \"job-title\": \"string\",\n    \"division\": \"string\",\n    \"department\": \"string\",\n    \"job-level\": \"string\",\n    \"location\": \"string\",\n    \"employee-type\": \"string\",\n    \"reporting-manager\": \"string\",\n    \"target-start-date\": \"string\",\n    \"termination-date\": \"string\",\n    \"hiring-status\": \"Not started\",\n    \"headcount-approved-date\": \"string\",\n    \"target-variable\": 8908.971531007752,\n    \"target-equity-currency\": \"string\",\n    \"priority\": \"Normal\",\n    \"target-equity\": 8054.284397363841,\n    \"custom-fields\": {\n      \"key_0\": {\n        \"key_0\": {}\n      }\n    },\n    \"opening-id\": \"string\",\n    \"budget-equity\": 1243.170821668196,\n    \"headcount-id\": \"string\",\n    \"sourcers\": \"string\",\n    \"actual-bonus\": 8556.218549518095,\n    \"budget-salary\": 4059.957149334937,\n    \"termination-type\": \"string\",\n    \"recruiters\": \"string\",\n    \"annualized-budget-salary\": 2531.39641712806,\n    \"target-bonus-perc\": 8880.354657235515,\n    \"actual-equity\": 1818.6965047714198,\n    \"actual-variable\": 2080.0398278437983,\n    \"compensation-change-reason\": \"string\",\n    \"budget-job-level\": \"string\",\n    \"headcount-type\": \"New hire\",\n    \"id\": \"8f5c466d-ac64-ddb0-ff21-313c909eaa04\",\n    \"archived-justification\": \"string\",\n    \"archived-date\": \"string\",\n    \"headcount-display-id\": \"string\",\n    \"backfill-employee-email\": \"string\",\n    \"headcount-denied-date\": \"string\",\n    \"headcount-is-private\": false,\n    \"actual-bonus-perc\": 1020.8089062259252,\n    \"budget-start-date\": \"string\",\n    \"is-current\": false,\n    \"employee-email\": \"string\",\n    \"budget-pay-rate\": \"string\",\n    \"hris-employee-id\": \"string\",\n    \"job-name\": \"string\",\n    \"denied-justification\": \"string\",\n    \"hiring-plan-active\": true,\n    \"actual-salary\": 933.635813864494,\n    \"employee-id\": \"60f34f45-90c7-56d9-0bda-a673c5cdbafa\",\n    \"reporting-manager-email\": \"string\",\n    \"last-updated\": \"2006-07-13T02:45:14.396Z\",\n    \"headcount-status\": \"Approved\",\n    \"actual-equity-currency\": \"string\",\n    \"status\": \"Denied\",\n    \"actual-start-date\": \"string\",\n    \"target-open-date\": \"string\",\n    \"pay-rate\": \"string\",\n    \"target-bonus\": 5136.626077447568,\n    \"budget-currency\": \"string\",\n    \"future-termination\": true,\n    \"backfill-employee\": \"string\",\n    \"annualized-actual-salary\": 5063.399246656502,\n    \"backfill-employee-id\": \"string\",\n    \"track-management\": \"string\",\n    \"hris-employee-remote-id\": \"string\",\n    \"target-salary\": 8324.74025603733,\n    \"target-currency\": \"string\",\n    \"hiring-plan\": \"string\",\n    \"state\": \"string\",\n    \"annualized-target-salary\": 3239.6079683509292,\n    \"offer-sent-date\": \"string\",\n    \"actual-currency\": \"string\",\n    \"budget-variable\": 3606.999433821466,\n    \"pay-rate-multiplier\": 8368.026881206482,\n    \"termination-reconciled\": false,\n    \"job-role\": \"string\",\n    \"headcount-url\": \"string\",\n    \"reporting-manager-hris-employee-id\": \"string\",\n    \"offer-accept-date\": \"string\",\n    \"team\": \"string\",\n    \"approval-requested-date\": \"string\",\n    \"initiative\": \"string\",\n    \"job-function\": \"string\",\n    \"target-hire-date\": \"string\",\n    \"target-pay-rate\": \"string\",\n    \"employment-end-date\": \"string\",\n    \"teamohana-id\": \"string\",\n    \"coordinators\": \"string\",\n    \"justification\": \"string\",\n    \"termination-regrettable\": false\n  },\n  {\n    \"employee-name\": \"string\",\n    \"job-title\": \"string\",\n    \"division\": \"string\",\n    \"department\": \"string\",\n    \"job-level\": \"string\",\n    \"location\": \"string\",\n    \"employee-type\": \"string\",\n    \"reporting-manager\": \"string\",\n    \"target-start-date\": \"string\",\n    \"termination-date\": \"string\",\n    \"hiring-status\": \"In progress\",\n    \"headcount-approved-date\": \"string\",\n    \"target-variable\": 3922.1868248741566,\n    \"target-equity-currency\": \"string\",\n    \"priority\": \"Normal\",\n    \"target-equity\": 8988.83395072055,\n    \"custom-fields\": {\n      \"key_0\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {}\n      }\n    },\n    \"opening-id\": \"string\",\n    \"budget-equity\": 8482.206397087271,\n    \"headcount-id\": \"string\",\n    \"sourcers\": \"string\",\n    \"actual-bonus\": 25.249086399827814,\n    \"budget-salary\": 9591.04885442008,\n    \"termination-type\": \"string\",\n    \"recruiters\": \"string\",\n    \"annualized-budget-salary\": 9482.389671969122,\n    \"target-bonus-perc\": 7494.37399349564,\n    \"actual-equity\": 2761.81399344225,\n    \"actual-variable\": 4204.128834171605,\n    \"compensation-change-reason\": \"string\",\n    \"budget-job-level\": \"string\",\n    \"headcount-type\": \"Backfill\",\n    \"id\": \"5edcd71d-e08f-6199-4bbd-fcc89d24a4d8\",\n    \"archived-justification\": \"string\",\n    \"archived-date\": \"string\",\n    \"headcount-display-id\": \"string\",\n    \"backfill-employee-email\": \"string\",\n    \"headcount-denied-date\": \"string\",\n    \"headcount-is-private\": false,\n    \"actual-bonus-perc\": 1212.7924377109023,\n    \"budget-start-date\": \"string\",\n    \"is-current\": true,\n    \"employee-email\": \"string\",\n    \"budget-pay-rate\": \"string\",\n    \"hris-employee-id\": \"string\",\n    \"job-name\": \"string\",\n    \"denied-justification\": \"string\",\n    \"hiring-plan-active\": true,\n    \"actual-salary\": 8637.413790170896,\n    \"employee-id\": \"e907d05d-0119-34c6-2779-7efb34e625bd\",\n    \"reporting-manager-email\": \"string\",\n    \"last-updated\": \"1972-08-28T09:30:41.808Z\",\n    \"headcount-status\": \"Approved\",\n    \"actual-equity-currency\": \"string\",\n    \"status\": \"Approved\",\n    \"actual-start-date\": \"string\",\n    \"target-open-date\": \"string\",\n    \"pay-rate\": \"string\",\n    \"target-bonus\": 2361.1664831015723,\n    \"budget-currency\": \"string\",\n    \"future-termination\": true,\n    \"backfill-employee\": \"string\",\n    \"annualized-actual-salary\": 1714.4419159146196,\n    \"backfill-employee-id\": \"string\",\n    \"track-management\": \"string\",\n    \"hris-employee-remote-id\": \"string\",\n    \"target-salary\": 1648.3668217629388,\n    \"target-currency\": \"string\",\n    \"hiring-plan\": \"string\",\n    \"state\": \"string\",\n    \"annualized-target-salary\": 7511.982856785739,\n    \"offer-sent-date\": \"string\",\n    \"actual-currency\": \"string\",\n    \"budget-variable\": 829.6870253289867,\n    \"pay-rate-multiplier\": 8828.292436663527,\n    \"termination-reconciled\": false,\n    \"job-role\": \"string\",\n    \"headcount-url\": \"string\",\n    \"reporting-manager-hris-employee-id\": \"string\",\n    \"offer-accept-date\": \"string\",\n    \"team\": \"string\",\n    \"approval-requested-date\": \"string\",\n    \"initiative\": \"string\",\n    \"job-function\": \"string\",\n    \"target-hire-date\": \"string\",\n    \"target-pay-rate\": \"string\",\n    \"employment-end-date\": \"string\",\n    \"teamohana-id\": \"string\",\n    \"coordinators\": \"string\",\n    \"justification\": \"string\",\n    \"termination-regrettable\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ba65c80-13ce-4411-a21c-42db2dfc0c3a",
+              "name": "Request does not contain valid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "headcount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "plan-id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "department-id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "division-id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7bdc540-60c9-4d13-a5e0-bef4552e6a9d",
+              "name": "Something went wrong at TeamOhana. Please contact support.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "headcount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "plan-id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "department-id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "division-id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d63908e-3c06-47a1-8d13-bec49e4ad6c4",
+          "name": "Generate headcount CSV and upload it to pigment",
+          "request": {
+            "name": "Generate headcount CSV and upload it to pigment",
+            "description": {
+              "content": "Generate the headcount CSV and trigger an async upload to Pigment. Optionally pass time-period in the body (currently only `\"this-year\"` is supported) to scope the CSV to the org's current fiscal year. Refer to the [Pigment Connector API FAQ](/faq/index.html#pigment-connector-api) for more details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":domain",
+                "v1",
+                "headcount",
+                "upload",
+                "pigment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"import-configuration-id\": \"<string>\",\n  \"time-period\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ac45dd6e-e2ec-44e6-9ff5-0a07a3decff9",
+              "name": "A success message describing the result of the upload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "headcount",
+                    "upload",
+                    "pigment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"import-configuration-id\": \"<string>\",\n  \"time-period\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5df632cd-92d2-4356-a532-fccb08a3a1c1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "headcount",
+                    "upload",
+                    "pigment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"import-configuration-id\": \"<string>\",\n  \"time-period\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bac20334-356a-4d1a-9253-c25f3a137cf2",
+              "name": "Something went wrong. Please contact TeamOhana support.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "v1",
+                    "headcount",
+                    "upload",
+                    "pigment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"import-configuration-id\": \"<string>\",\n  \"time-period\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "153f8dd5-f8ef-4ae6-a1ab-d5381f4884f0",
+    "name": "TeamOhana Public Discovery Headcount API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Refer to the [API FAQ](/faq) for more details on the usage.\n\nNote: API keys for the SCIM API and the Headcount API are different. Please make sure you are using the right keys.",
+      "type": "text/plain"
+    }
+  }
+}

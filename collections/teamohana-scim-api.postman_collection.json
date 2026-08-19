@@ -1,0 +1,1639 @@
+{
+  "item": [
+    {
+      "id": "e2b7436a-07cd-4877-9f6f-70072bae065f",
+      "name": "SCIM",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "73d1fdfa-b733-4b47-a4bd-eb1c71ab93e4",
+          "name": "Fetch server capabilities",
+          "request": {
+            "name": "Fetch server capabilities",
+            "description": {
+              "content": "This API is used to figure out all the SCIM features supported by us. Currently all the features except changePassword are unsupported and the supported authentication scheme is basic auth.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":domain",
+                "ServiceProviderConfig"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "23a5f7e1-0d59-4809-a7d9-4cc216f7a49d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "ServiceProviderConfig"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"authenticationSchemes\": [\n    {\n      \"type\": \"httpdigest\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"specUri\": \"string\",\n      \"documentationUri\": \"string\"\n    },\n    {\n      \"type\": \"httpbasic\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"specUri\": \"string\",\n      \"documentationUri\": \"string\"\n    }\n  ],\n  \"bulk\": {\n    \"supported\": false,\n    \"maxOperations\": 6724,\n    \"maxPayloadSize\": 6949\n  },\n  \"changePassword\": {\n    \"supported\": false\n  },\n  \"etag\": {\n    \"supported\": false\n  },\n  \"filter\": {\n    \"supported\": true,\n    \"maxResults\": 6848\n  },\n  \"patch\": {\n    \"supported\": false\n  },\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig\",\n    \"urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig\"\n  ],\n  \"sort\": {\n    \"supported\": false\n  },\n  \"documentationUri\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a943bca-afd7-447c-8279-7059547f92d0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "ServiceProviderConfig"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"500\",\n  \"detail\": \"string\",\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\",\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a8319f33-0203-43ab-b7db-40b58f470f7e",
+          "name": "Fetch a user",
+          "request": {
+            "name": "Fetch a user",
+            "description": {
+              "content": "Given an id return all the fields stored by TeamOhana. As per SCIM specification passwords will not be returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":domain",
+                "Users",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "528be853-3b1c-4819-b31b-42b0d1a1364a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"meta\": {\n    \"resourceType\": \"user\",\n    \"created\": \"1974-05-29T16:52:33.000Z\",\n    \"lastModified\": \"2014-12-14T17:00:49.096Z\",\n    \"location\": \"string\",\n    \"version\": \"93b54a93-5ae8-18ac-5e44-f3399b1d8a08\"\n  },\n  \"schemas\": \"\",\n  \"userName\": \"string\",\n  \"entitlements\": [\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"home\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"profileUrl\": \"string\",\n  \"nickname\": \"string\",\n  \"preferredLanguage\": \"string\",\n  \"ims\": [\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"timezone\": \"string\",\n  \"displayName\": \"string\",\n  \"userType\": \"string\",\n  \"name\": {\n    \"formatted\": \"string\",\n    \"familyName\": \"string\",\n    \"givenName\": \"string\",\n    \"middleName\": \"string\",\n    \"honorificPrefix\": \"string\",\n    \"honorificSuffix\": \"string\"\n  },\n  \"locale\": \"string\",\n  \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n    \"key_0\": {}\n  },\n  \"addresses\": [\n    {\n      \"primary\": true,\n      \"type\": \"work\",\n      \"formatted\": \"string\",\n      \"streetAddress\": \"string\",\n      \"locality\": \"string\",\n      \"region\": \"string\",\n      \"postalCode\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"primary\": true,\n      \"type\": \"other\",\n      \"formatted\": \"string\",\n      \"streetAddress\": \"string\",\n      \"locality\": \"string\",\n      \"region\": \"string\",\n      \"postalCode\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"title\": \"string\",\n  \"password\": \"string\",\n  \"photos\": [\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"x509Certificates\": [\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"work\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"emails\": [\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"active\": true,\n  \"phoneNumbers\": [\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"home\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"work\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"groups\": [\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"work\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"externalId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6dff0ec5-86f1-4135-9421-87040e2d0b07",
+              "name": "Request does not conform to the SCIM standard. Check for typos or missing fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\",\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"500\",\n  \"scimType\": \"tooMany\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1278128-3f8f-4791-a9ae-98d04583d87b",
+              "name": "No such resource found. Please check the id or filters again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"500\",\n  \"detail\": \"string\",\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\",\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2b143fc-a7df-4a3e-bd6f-3a28c299c51f",
+              "name": "Something went wrong at TeamOhana. Please contact support.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"500\",\n  \"detail\": \"string\",\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\",\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a2bbc50-168d-4b84-b6c4-562eea41f685",
+          "name": "Update a user",
+          "request": {
+            "name": "Update a user",
+            "description": {
+              "content": "Given an id and a body update the data in TeamOhana and return the update payload. As per SCIM specification passwords will not be returned. Passwords can still be updated since they have a writeOnly mutability. This API can be used to activate and deactivate a user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":domain",
+                "Users",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": \"\",\n  \"userName\": \"<string>\",\n  \"entitlements\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"profileUrl\": \"<string>\",\n  \"nickname\": \"<string>\",\n  \"preferredLanguage\": \"<string>\",\n  \"ims\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"timezone\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"userType\": \"<string>\",\n  \"name\": {\n    \"formatted\": \"<string>\",\n    \"familyName\": \"<string>\",\n    \"givenName\": \"<string>\",\n    \"middleName\": \"<string>\",\n    \"honorificPrefix\": \"<string>\",\n    \"honorificSuffix\": \"<string>\"\n  },\n  \"locale\": \"<string>\",\n  \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  },\n  \"addresses\": [\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"title\": \"<string>\",\n  \"password\": \"<string>\",\n  \"photos\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"x509Certificates\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"emails\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"active\": \"<boolean>\",\n  \"phoneNumbers\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"groups\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ad5462a1-9eb3-4871-a47d-efa10fa0be77",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": \"\",\n  \"userName\": \"<string>\",\n  \"entitlements\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"profileUrl\": \"<string>\",\n  \"nickname\": \"<string>\",\n  \"preferredLanguage\": \"<string>\",\n  \"ims\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"timezone\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"userType\": \"<string>\",\n  \"name\": {\n    \"formatted\": \"<string>\",\n    \"familyName\": \"<string>\",\n    \"givenName\": \"<string>\",\n    \"middleName\": \"<string>\",\n    \"honorificPrefix\": \"<string>\",\n    \"honorificSuffix\": \"<string>\"\n  },\n  \"locale\": \"<string>\",\n  \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n    \"key_0\": {}\n  },\n  \"addresses\": [\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"title\": \"<string>\",\n  \"password\": \"<string>\",\n  \"photos\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"x509Certificates\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"emails\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"active\": \"<boolean>\",\n  \"phoneNumbers\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"groups\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"meta\": {\n    \"resourceType\": \"user\",\n    \"created\": \"1974-05-29T16:52:33.000Z\",\n    \"lastModified\": \"2014-12-14T17:00:49.096Z\",\n    \"location\": \"string\",\n    \"version\": \"93b54a93-5ae8-18ac-5e44-f3399b1d8a08\"\n  },\n  \"schemas\": \"\",\n  \"userName\": \"string\",\n  \"entitlements\": [\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"home\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"profileUrl\": \"string\",\n  \"nickname\": \"string\",\n  \"preferredLanguage\": \"string\",\n  \"ims\": [\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"timezone\": \"string\",\n  \"displayName\": \"string\",\n  \"userType\": \"string\",\n  \"name\": {\n    \"formatted\": \"string\",\n    \"familyName\": \"string\",\n    \"givenName\": \"string\",\n    \"middleName\": \"string\",\n    \"honorificPrefix\": \"string\",\n    \"honorificSuffix\": \"string\"\n  },\n  \"locale\": \"string\",\n  \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n    \"key_0\": {}\n  },\n  \"addresses\": [\n    {\n      \"primary\": true,\n      \"type\": \"work\",\n      \"formatted\": \"string\",\n      \"streetAddress\": \"string\",\n      \"locality\": \"string\",\n      \"region\": \"string\",\n      \"postalCode\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"primary\": true,\n      \"type\": \"other\",\n      \"formatted\": \"string\",\n      \"streetAddress\": \"string\",\n      \"locality\": \"string\",\n      \"region\": \"string\",\n      \"postalCode\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"title\": \"string\",\n  \"password\": \"string\",\n  \"photos\": [\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"x509Certificates\": [\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"work\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"emails\": [\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"active\": true,\n  \"phoneNumbers\": [\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"home\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"work\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"groups\": [\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"work\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"externalId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40385a47-1f7e-4b8b-a6d1-1955ab837f5f",
+              "name": "Request does not conform to the SCIM standard. Check for typos or missing fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": \"\",\n  \"userName\": \"<string>\",\n  \"entitlements\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"profileUrl\": \"<string>\",\n  \"nickname\": \"<string>\",\n  \"preferredLanguage\": \"<string>\",\n  \"ims\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"timezone\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"userType\": \"<string>\",\n  \"name\": {\n    \"formatted\": \"<string>\",\n    \"familyName\": \"<string>\",\n    \"givenName\": \"<string>\",\n    \"middleName\": \"<string>\",\n    \"honorificPrefix\": \"<string>\",\n    \"honorificSuffix\": \"<string>\"\n  },\n  \"locale\": \"<string>\",\n  \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n    \"key_0\": {}\n  },\n  \"addresses\": [\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"title\": \"<string>\",\n  \"password\": \"<string>\",\n  \"photos\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"x509Certificates\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"emails\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"active\": \"<boolean>\",\n  \"phoneNumbers\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"groups\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\",\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"500\",\n  \"scimType\": \"tooMany\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1f8bbb7-a825-4291-a7bc-d5df90e8a194",
+              "name": "No such resource found. Please check the id or filters again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": \"\",\n  \"userName\": \"<string>\",\n  \"entitlements\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"profileUrl\": \"<string>\",\n  \"nickname\": \"<string>\",\n  \"preferredLanguage\": \"<string>\",\n  \"ims\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"timezone\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"userType\": \"<string>\",\n  \"name\": {\n    \"formatted\": \"<string>\",\n    \"familyName\": \"<string>\",\n    \"givenName\": \"<string>\",\n    \"middleName\": \"<string>\",\n    \"honorificPrefix\": \"<string>\",\n    \"honorificSuffix\": \"<string>\"\n  },\n  \"locale\": \"<string>\",\n  \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n    \"key_0\": {}\n  },\n  \"addresses\": [\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"title\": \"<string>\",\n  \"password\": \"<string>\",\n  \"photos\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"x509Certificates\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"emails\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"active\": \"<boolean>\",\n  \"phoneNumbers\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"groups\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"500\",\n  \"detail\": \"string\",\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\",\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97b65def-9645-4fe9-ba38-fe4eb19bb9fb",
+              "name": "Something went wrong at TeamOhana. Please contact support.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": \"\",\n  \"userName\": \"<string>\",\n  \"entitlements\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"profileUrl\": \"<string>\",\n  \"nickname\": \"<string>\",\n  \"preferredLanguage\": \"<string>\",\n  \"ims\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"timezone\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"userType\": \"<string>\",\n  \"name\": {\n    \"formatted\": \"<string>\",\n    \"familyName\": \"<string>\",\n    \"givenName\": \"<string>\",\n    \"middleName\": \"<string>\",\n    \"honorificPrefix\": \"<string>\",\n    \"honorificSuffix\": \"<string>\"\n  },\n  \"locale\": \"<string>\",\n  \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n    \"key_0\": {}\n  },\n  \"addresses\": [\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"title\": \"<string>\",\n  \"password\": \"<string>\",\n  \"photos\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"x509Certificates\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"emails\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"active\": \"<boolean>\",\n  \"phoneNumbers\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"groups\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"500\",\n  \"detail\": \"string\",\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\",\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "afb624a0-91da-4dd4-a3e7-904fa84a903d",
+          "name": "Delete a user",
+          "request": {
+            "name": "Delete a user",
+            "description": {
+              "content": "Given an id delete the user. As per SCIM specification return an empty body on successful deletion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":domain",
+                "Users",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c1a591d-9349-444e-9147-adc0cef6b6a1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b94e2d13-c3e6-4d83-a702-c742d70f5999",
+              "name": "Request does not conform to the SCIM standard. Check for typos or missing fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\",\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"500\",\n  \"scimType\": \"tooMany\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd04cb07-681b-4f71-9146-d5f29a1156f1",
+              "name": "No such resource found. Please check the id or filters again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"500\",\n  \"detail\": \"string\",\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\",\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "348d10a3-3968-4f21-96c6-4024a8ad5890",
+              "name": "Something went wrong at TeamOhana. Please contact support.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"500\",\n  \"detail\": \"string\",\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\",\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c8098f9-b7e3-4544-a06d-74983cd3f59d",
+          "name": "Fetch all the users in TeamOhana.",
+          "request": {
+            "name": "Fetch all the users in TeamOhana.",
+            "description": {
+              "content": "Get a list of all the users that exists in TeamOhana.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":domain",
+                "Users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "startIndex",
+                  "value": "<long>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e884373a-d7f9-4b26-868d-4b8997f713c3",
+              "name": "A list response containing all the users.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Resources\": [\n    {\n      \"userName\": \"string\",\n      \"entitlements\": [\n        {\n          \"value\": \"string\",\n          \"primary\": true,\n          \"display\": \"string\",\n          \"type\": \"\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"other\",\n          \"$ref\": \"string\"\n        }\n      ],\n      \"profileUrl\": \"string\",\n      \"nickname\": \"string\",\n      \"preferredLanguage\": \"string\",\n      \"ims\": [\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"home\",\n          \"$ref\": \"string\"\n        }\n      ],\n      \"timezone\": \"string\",\n      \"displayName\": \"string\",\n      \"userType\": \"string\",\n      \"name\": {\n        \"formatted\": \"string\",\n        \"familyName\": \"string\",\n        \"givenName\": \"string\",\n        \"middleName\": \"string\",\n        \"honorificPrefix\": \"string\",\n        \"honorificSuffix\": \"string\"\n      },\n      \"locale\": \"string\",\n      \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n        \"key_0\": {}\n      },\n      \"addresses\": [\n        {\n          \"primary\": false,\n          \"type\": \"home\",\n          \"formatted\": \"string\",\n          \"streetAddress\": \"string\",\n          \"locality\": \"string\",\n          \"region\": \"string\",\n          \"postalCode\": \"string\",\n          \"country\": \"string\"\n        },\n        {\n          \"primary\": true,\n          \"type\": \"\",\n          \"formatted\": \"string\",\n          \"streetAddress\": \"string\",\n          \"locality\": \"string\",\n          \"region\": \"string\",\n          \"postalCode\": \"string\",\n          \"country\": \"string\"\n        }\n      ],\n      \"title\": \"string\",\n      \"password\": \"string\",\n      \"photos\": [\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"work\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"work\",\n          \"$ref\": \"string\"\n        }\n      ],\n      \"x509Certificates\": [\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"work\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"other\",\n          \"$ref\": \"string\"\n        }\n      ],\n      \"emails\": [\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"work\",\n          \"$ref\": \"string\"\n        }\n      ],\n      \"active\": true,\n      \"phoneNumbers\": [\n        {\n          \"value\": \"string\",\n          \"primary\": true,\n          \"display\": \"string\",\n          \"type\": \"other\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"home\",\n          \"$ref\": \"string\"\n        }\n      ],\n      \"roles\": [\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"other\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": true,\n          \"display\": \"string\",\n          \"type\": \"teamohana\",\n          \"$ref\": \"string\"\n        }\n      ],\n      \"groups\": [\n        {\n          \"value\": \"string\",\n          \"primary\": true,\n          \"display\": \"string\",\n          \"type\": \"home\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": true,\n          \"display\": \"string\",\n          \"type\": \"home\",\n          \"$ref\": \"string\"\n        }\n      ]\n    },\n    {\n      \"userName\": \"string\",\n      \"entitlements\": [\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"\",\n          \"$ref\": \"string\"\n        }\n      ],\n      \"profileUrl\": \"string\",\n      \"nickname\": \"string\",\n      \"preferredLanguage\": \"string\",\n      \"ims\": [\n        {\n          \"value\": \"string\",\n          \"primary\": true,\n          \"display\": \"string\",\n          \"type\": \"other\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": true,\n          \"display\": \"string\",\n          \"type\": \"other\",\n          \"$ref\": \"string\"\n        }\n      ],\n      \"timezone\": \"string\",\n      \"displayName\": \"string\",\n      \"userType\": \"string\",\n      \"name\": {\n        \"formatted\": \"string\",\n        \"familyName\": \"string\",\n        \"givenName\": \"string\",\n        \"middleName\": \"string\",\n        \"honorificPrefix\": \"string\",\n        \"honorificSuffix\": \"string\"\n      },\n      \"locale\": \"string\",\n      \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n        \"key_0\": {}\n      },\n      \"addresses\": [\n        {\n          \"primary\": true,\n          \"type\": \"home\",\n          \"formatted\": \"string\",\n          \"streetAddress\": \"string\",\n          \"locality\": \"string\",\n          \"region\": \"string\",\n          \"postalCode\": \"string\",\n          \"country\": \"string\"\n        },\n        {\n          \"primary\": false,\n          \"type\": \"work\",\n          \"formatted\": \"string\",\n          \"streetAddress\": \"string\",\n          \"locality\": \"string\",\n          \"region\": \"string\",\n          \"postalCode\": \"string\",\n          \"country\": \"string\"\n        }\n      ],\n      \"title\": \"string\",\n      \"password\": \"string\",\n      \"photos\": [\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"other\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": true,\n          \"display\": \"string\",\n          \"type\": \"home\",\n          \"$ref\": \"string\"\n        }\n      ],\n      \"x509Certificates\": [\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"work\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"home\",\n          \"$ref\": \"string\"\n        }\n      ],\n      \"emails\": [\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"\",\n          \"$ref\": \"string\"\n        }\n      ],\n      \"active\": true,\n      \"phoneNumbers\": [\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"work\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": true,\n          \"display\": \"string\",\n          \"type\": \"\",\n          \"$ref\": \"string\"\n        }\n      ],\n      \"roles\": [\n        {\n          \"value\": \"string\",\n          \"primary\": true,\n          \"display\": \"string\",\n          \"type\": \"teamohana\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"work\",\n          \"$ref\": \"string\"\n        }\n      ],\n      \"groups\": [\n        {\n          \"value\": \"string\",\n          \"primary\": false,\n          \"display\": \"string\",\n          \"type\": \"\",\n          \"$ref\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"primary\": true,\n          \"display\": \"string\",\n          \"type\": \"other\",\n          \"$ref\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"schemas\": [\n    \"list-response\",\n    \"list-response\"\n  ],\n  \"totalResults\": 8699,\n  \"startIndex\": 5538,\n  \"itemsPerPage\": 4480\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa7ef291-d7f9-490e-be99-29f9faf01295",
+              "name": "Request does not conform to the SCIM standard. Check for typos or missing fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\",\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"500\",\n  \"scimType\": \"tooMany\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3882aa68-215a-452d-9d89-a9d69e312b6e",
+              "name": "Something went wrong at TeamOhana. Please contact support.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"500\",\n  \"detail\": \"string\",\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\",\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3bfb0e40-b19b-466c-b23d-ad61c78316b5",
+          "name": "Create a user",
+          "request": {
+            "name": "Create a user",
+            "description": {
+              "content": "Given a body create the user in TeamOhana and return it to the user. If the password is not provided during creation a randomly generated password will be set for the user. The username should be an email id OR the emails field should contain at least one email with type work. The API will fail to create the user otherwise. By default the user is also provisioned in Auth0; set `create-in-auth0` to `false` in the body when the user already exists in Auth0 (e.g. via SSO) — in that case `externalId` must be set to the Auth0 user_id. The user's role is taken from the `roles` attribute: the `value` of the entry whose `type` is `teamohana` (case-sensitive), is matched against the org's role names. When no such entry is present the user defaults to the `employee` role; when a matching role is supplied but does not exist the request fails with 400 `invalidValue`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":domain",
+                "Users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": \"\",\n  \"userName\": \"<string>\",\n  \"entitlements\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"profileUrl\": \"<string>\",\n  \"nickname\": \"<string>\",\n  \"preferredLanguage\": \"<string>\",\n  \"ims\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"timezone\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"userType\": \"<string>\",\n  \"name\": {\n    \"formatted\": \"<string>\",\n    \"familyName\": \"<string>\",\n    \"givenName\": \"<string>\",\n    \"middleName\": \"<string>\",\n    \"honorificPrefix\": \"<string>\",\n    \"honorificSuffix\": \"<string>\"\n  },\n  \"locale\": \"<string>\",\n  \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  },\n  \"addresses\": [\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"title\": \"<string>\",\n  \"create-in-auth0\": \"<boolean>\",\n  \"password\": \"<string>\",\n  \"photos\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"x509Certificates\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"emails\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"active\": \"<boolean>\",\n  \"phoneNumbers\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"groups\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"externalId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d89fb0d3-d757-4883-b026-f36b4788bd01",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": \"\",\n  \"userName\": \"<string>\",\n  \"entitlements\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"profileUrl\": \"<string>\",\n  \"nickname\": \"<string>\",\n  \"preferredLanguage\": \"<string>\",\n  \"ims\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"timezone\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"userType\": \"<string>\",\n  \"name\": {\n    \"formatted\": \"<string>\",\n    \"familyName\": \"<string>\",\n    \"givenName\": \"<string>\",\n    \"middleName\": \"<string>\",\n    \"honorificPrefix\": \"<string>\",\n    \"honorificSuffix\": \"<string>\"\n  },\n  \"locale\": \"<string>\",\n  \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  },\n  \"addresses\": [\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"title\": \"<string>\",\n  \"create-in-auth0\": \"<boolean>\",\n  \"password\": \"<string>\",\n  \"photos\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"x509Certificates\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"emails\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"active\": \"<boolean>\",\n  \"phoneNumbers\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"groups\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"externalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"meta\": {\n    \"resourceType\": \"user\",\n    \"created\": \"1974-05-29T16:52:33.000Z\",\n    \"lastModified\": \"2014-12-14T17:00:49.096Z\",\n    \"location\": \"string\",\n    \"version\": \"93b54a93-5ae8-18ac-5e44-f3399b1d8a08\"\n  },\n  \"schemas\": \"\",\n  \"userName\": \"string\",\n  \"entitlements\": [\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"home\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"profileUrl\": \"string\",\n  \"nickname\": \"string\",\n  \"preferredLanguage\": \"string\",\n  \"ims\": [\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"timezone\": \"string\",\n  \"displayName\": \"string\",\n  \"userType\": \"string\",\n  \"name\": {\n    \"formatted\": \"string\",\n    \"familyName\": \"string\",\n    \"givenName\": \"string\",\n    \"middleName\": \"string\",\n    \"honorificPrefix\": \"string\",\n    \"honorificSuffix\": \"string\"\n  },\n  \"locale\": \"string\",\n  \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n    \"key_0\": {}\n  },\n  \"addresses\": [\n    {\n      \"primary\": true,\n      \"type\": \"work\",\n      \"formatted\": \"string\",\n      \"streetAddress\": \"string\",\n      \"locality\": \"string\",\n      \"region\": \"string\",\n      \"postalCode\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"primary\": true,\n      \"type\": \"other\",\n      \"formatted\": \"string\",\n      \"streetAddress\": \"string\",\n      \"locality\": \"string\",\n      \"region\": \"string\",\n      \"postalCode\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"title\": \"string\",\n  \"password\": \"string\",\n  \"photos\": [\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"x509Certificates\": [\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"work\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"emails\": [\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"active\": true,\n  \"phoneNumbers\": [\n    {\n      \"value\": \"string\",\n      \"primary\": true,\n      \"display\": \"string\",\n      \"type\": \"home\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"work\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"groups\": [\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"other\",\n      \"$ref\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"primary\": false,\n      \"display\": \"string\",\n      \"type\": \"work\",\n      \"$ref\": \"string\"\n    }\n  ],\n  \"externalId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e27be284-28d7-4e9a-a31d-12f993801187",
+              "name": "Request does not conform to the SCIM standard. Check for typos or missing fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": \"\",\n  \"userName\": \"<string>\",\n  \"entitlements\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"profileUrl\": \"<string>\",\n  \"nickname\": \"<string>\",\n  \"preferredLanguage\": \"<string>\",\n  \"ims\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"timezone\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"userType\": \"<string>\",\n  \"name\": {\n    \"formatted\": \"<string>\",\n    \"familyName\": \"<string>\",\n    \"givenName\": \"<string>\",\n    \"middleName\": \"<string>\",\n    \"honorificPrefix\": \"<string>\",\n    \"honorificSuffix\": \"<string>\"\n  },\n  \"locale\": \"<string>\",\n  \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  },\n  \"addresses\": [\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"title\": \"<string>\",\n  \"create-in-auth0\": \"<boolean>\",\n  \"password\": \"<string>\",\n  \"photos\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"x509Certificates\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"emails\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"active\": \"<boolean>\",\n  \"phoneNumbers\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"groups\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"externalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\",\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"500\",\n  \"scimType\": \"tooMany\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce71f561-c1cf-4b6b-ab83-172c8e0d1034",
+              "name": "A resource with the same email already exists in the system.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": \"\",\n  \"userName\": \"<string>\",\n  \"entitlements\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"profileUrl\": \"<string>\",\n  \"nickname\": \"<string>\",\n  \"preferredLanguage\": \"<string>\",\n  \"ims\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"timezone\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"userType\": \"<string>\",\n  \"name\": {\n    \"formatted\": \"<string>\",\n    \"familyName\": \"<string>\",\n    \"givenName\": \"<string>\",\n    \"middleName\": \"<string>\",\n    \"honorificPrefix\": \"<string>\",\n    \"honorificSuffix\": \"<string>\"\n  },\n  \"locale\": \"<string>\",\n  \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  },\n  \"addresses\": [\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"title\": \"<string>\",\n  \"create-in-auth0\": \"<boolean>\",\n  \"password\": \"<string>\",\n  \"photos\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"x509Certificates\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"emails\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"active\": \"<boolean>\",\n  \"phoneNumbers\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"groups\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"externalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"500\",\n  \"detail\": \"string\",\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\",\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "500f213c-eb87-4e90-a123-b8894cfe7ce7",
+              "name": "Something went wrong at TeamOhana. Please contact support.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":domain",
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": \"\",\n  \"userName\": \"<string>\",\n  \"entitlements\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"profileUrl\": \"<string>\",\n  \"nickname\": \"<string>\",\n  \"preferredLanguage\": \"<string>\",\n  \"ims\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"timezone\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"userType\": \"<string>\",\n  \"name\": {\n    \"formatted\": \"<string>\",\n    \"familyName\": \"<string>\",\n    \"givenName\": \"<string>\",\n    \"middleName\": \"<string>\",\n    \"honorificPrefix\": \"<string>\",\n    \"honorificSuffix\": \"<string>\"\n  },\n  \"locale\": \"<string>\",\n  \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  },\n  \"addresses\": [\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"primary\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"formatted\": \"<string>\",\n      \"streetAddress\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"title\": \"<string>\",\n  \"create-in-auth0\": \"<boolean>\",\n  \"password\": \"<string>\",\n  \"photos\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"x509Certificates\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"emails\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"active\": \"<boolean>\",\n  \"phoneNumbers\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"groups\": [\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"primary\": \"<boolean>\",\n      \"display\": \"<string>\",\n      \"type\": \"<string>\",\n      \"$ref\": \"<string>\"\n    }\n  ],\n  \"externalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"500\",\n  \"detail\": \"string\",\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\",\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "81d2d721-62ed-4f5e-9644-aa2fb8313ec6",
+    "name": "TeamOhana Public Discovery SCIM API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Refer to the [API FAQ](/faq) for more details on the usage.\n\nNote: API keys for the SCIM API and the Headcount API are different. Please make sure you are using the right keys.",
+      "type": "text/plain"
+    }
+  }
+}

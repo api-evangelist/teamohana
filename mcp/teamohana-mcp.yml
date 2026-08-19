@@ -2,10 +2,9 @@ generated: '2026-07-21'
 method: derived
 status: candidate
 source: openapi/teamohana-openapi-original.json
-notes: >-
-  No official hosted/remote MCP server was found for TeamOhana. This is a CANDIDATE
-  tool list derived one-to-one from the Public API operations (bearer-token auth;
-  {domain} = the customer domain). Not an authoritative provider claim.
+notes: No official hosted/remote MCP server was found for TeamOhana. This is a CANDIDATE tool list derived
+  one-to-one from the Public API operations (bearer-token auth; {domain} = the customer domain). Not an
+  authoritative provider claim.
 server:
   name: teamohana
   transport: http
@@ -52,3 +51,9 @@ tools:
 - name: export_scenario
   description: Fetch headcount and employees within a scenario.
   source_operation: openapi/teamohana-openapi-original.json#GET /{domain}/v1/scenarios/{id}/export
+deployment:
+  mode: none
+  verified: derived
+  tools: 14
+  checked: '2026-08-12'
+  source: catalog MCP census
