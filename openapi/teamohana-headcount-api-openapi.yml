@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: TeamOhana Public Discovery Headcount API
-  description: 'Refer to the [API FAQ](/faq) for more details on the usage.
+  title: TeamOhana Public Headcount API
+  description: 'Refer to the API FAQ for more details on the usage.
 
 
     Note: API keys for the SCIM API and the Headcount API are different. Please make sure you are using the right keys.'
@@ -820,8 +820,10 @@ paths:
                 type: string
       tags:
       - Headcount
-      summary: Fetch all the headcount in TeamOhana.
-      description: Get a list of all valid headcount that exists in TeamOhana. Supports optional filtering by plan, status, hiring status, department, and division. Response format is selected via the Accept header (`application/json` default, `text/csv` for a downloadable CSV). Refer to the [Headcount Data API FAQ](/faq/index.html#headcount-data-api) for more details.
+      summary: Fetch all the headcount in TeamOhana
+      description: Get a list of all valid headcount that exists in TeamOhana. Supports optional filtering by plan, status, hiring status, department, and division. Response format is selected via the Accept header (`application/json` default, `text/csv` for a downloadable CSV). Refer to the Headcount Data API FAQ for more details.
+      operationId: getByDomainV1Headcount
+      x-operation-id-source: derived
     post:
       parameters:
       - name: domain
@@ -1619,8 +1621,10 @@ paths:
                 title: ohana.common.schemas.public-api.headcount/api-response
       tags:
       - Headcount
-      summary: Fetch all the headcount in TeamOhana.
-      description: Get a list of all valid headcount that exists in TeamOhana. Supports optional filtering by plan, status, hiring status, department, and division. Refer to the [Headcount Data API FAQ](/faq/index.html#headcount-data-api) for more details.
+      summary: Fetch all the headcount in TeamOhana
+      description: Get a list of all valid headcount that exists in TeamOhana. Supports optional filtering by plan, status, hiring status, department, and division. Refer to the Headcount Data API FAQ for more details.
+      operationId: postByDomainV1Headcount
+      x-operation-id-source: derived
   /{domain}/v1/headcount/upload/pigment:
     post:
       parameters:
@@ -1678,7 +1682,9 @@ paths:
       tags:
       - Headcount
       summary: Generate headcount CSV and upload it to pigment
-      description: Generate the headcount CSV and trigger an async upload to Pigment. Optionally pass time-period in the body (currently only `"this-year"` is supported) to scope the CSV to the org's current fiscal year. Refer to the [Pigment Connector API FAQ](/faq/index.html#pigment-connector-api) for more details.
+      description: Generate the headcount CSV and trigger an async upload to Pigment. Optionally pass time-period in the body (currently only `"this-year"` is supported) to scope the CSV to the org's current fiscal year. Refer to the Pigment Connector API FAQ for more details.
+      operationId: postByDomainV1HeadcountUploadPigment
+      x-operation-id-source: derived
 components:
   securitySchemes:
     Authorization:

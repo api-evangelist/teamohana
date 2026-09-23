@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: TeamOhana Public Discovery SCIM API
-  description: 'Refer to the [API FAQ](/faq) for more details on the usage.
+  title: TeamOhana Public SCIM API
+  description: 'Refer to the API FAQ for more details on the usage.
 
 
     Note: API keys for the SCIM API and the Headcount API are different. Please make sure you are using the right keys.'
@@ -169,6 +169,8 @@ paths:
       - SCIM
       summary: Fetch server capabilities
       description: This API is used to figure out all the SCIM features supported by us. Currently all the features except changePassword are unsupported and the supported authentication scheme is basic auth.
+      operationId: getByDomainServiceProviderConfig
+      x-operation-id-source: derived
   /{domain}/Users/{id}:
     get:
       parameters:
@@ -623,6 +625,8 @@ paths:
       - SCIM
       summary: Fetch a user
       description: Given an id return all the fields stored by TeamOhana. As per SCIM specification passwords will not be returned.
+      operationId: getByDomainUsersById
+      x-operation-id-source: derived
     put:
       parameters:
       - name: id
@@ -1365,6 +1369,8 @@ paths:
       - SCIM
       summary: Update a user
       description: Given an id and a body update the data in TeamOhana and return the update payload. As per SCIM specification passwords will not be returned. Passwords can still be updated since they have a writeOnly mutability. This API can be used to activate and deactivate a user.
+      operationId: putByDomainUsersById
+      x-operation-id-source: derived
     delete:
       parameters:
       - name: id
@@ -1505,6 +1511,8 @@ paths:
       - SCIM
       summary: Delete a user
       description: Given an id delete the user. As per SCIM specification return an empty body on successful deletion.
+      operationId: deleteByDomainUsersById
+      x-operation-id-source: derived
   /{domain}/Users:
     get:
       parameters:
@@ -1940,8 +1948,10 @@ paths:
                 title: ohana.common.schemas.scim.users/result
       tags:
       - SCIM
-      summary: Fetch all the users in TeamOhana.
+      summary: Fetch all the users in TeamOhana
       description: Get a list of all the users that exists in TeamOhana.
+      operationId: getByDomainUsers
+      x-operation-id-source: derived
     post:
       parameters:
       - name: domain
@@ -2681,6 +2691,8 @@ paths:
       - SCIM
       summary: Create a user
       description: 'Given a body create the user in TeamOhana and return it to the user. If the password is not provided during creation a randomly generated password will be set for the user. The username should be an email id OR the emails field should contain at least one email with type work. The API will fail to create the user otherwise. By default the user is also provisioned in Auth0; set `create-in-auth0` to `false` in the body when the user already exists in Auth0 (e.g. via SSO) — in that case `externalId` must be set to the Auth0 user_id. The user''s role is taken from the `roles` attribute: the `value` of the entry whose `type` is `teamohana` (case-sensitive), is matched against the org''s role names. When no such entry is present the user defaults to the `employee` role; when a matching role is supplied but does not exist the request fails with 400 `invalidValue`.'
+      operationId: postByDomainUsers
+      x-operation-id-source: derived
 components:
   securitySchemes:
     Authorization:

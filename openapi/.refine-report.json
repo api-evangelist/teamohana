@@ -1,20 +1,30 @@
 {
   "provider": "teamohana",
   "sources": [
-    "teamohana-discovery-api-openapi.yml",
-    "teamohana-headcount-api-openapi.yml",
-    "teamohana-scenario-api-openapi.yml",
-    "teamohana-scim-api-openapi.yml"
+    "_original/teamohana-openapi-original.json"
   ],
   "outputs": [
     "teamohana-discovery-api-openapi.yml",
     "teamohana-headcount-api-openapi.yml",
-    "teamohana-scenario-api-openapi.yml",
-    "teamohana-scim-api-openapi.yml"
+    "teamohana-scim-api-openapi.yml",
+    "teamohana-scenario-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "teamohana-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "teamohana-openapi-original.json: declared missing tag: Discovery",
+    "teamohana-openapi-original.json: declared missing tag: Headcount",
+    "teamohana-openapi-original.json: declared missing tag: SCIM",
+    "teamohana-openapi-original.json: declared missing tag: Scenario",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "teamohana-discovery-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "teamohana-headcount-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "teamohana-scenario-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "teamohana-scim-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
