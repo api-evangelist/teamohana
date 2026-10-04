@@ -1,0 +1,44 @@
+slug: teamohana
+provider: TeamOhana
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Headcount
+  spec_file: teamohana-headcount-api-openapi.yml
+  capability_id: BC-300.50
+  capability_id_l1: BC-300
+  capability_name: Workforce Planning Management
+  confidence: 0.85
+  evidence: GET /{domain}/v1/headcount 'Fetch all the headcount in TeamOhana'; vendor is a 'headcount
+    management and planning platform ... single source of truth for a company's people budget'
+  reason: Operations retrieve and export approved headcount, the core artefact of strategic workforce
+    planning against budget.
+- tag: Discovery
+  spec_file: teamohana-discovery-api-openapi.yml
+  capability_id: BC-300.50
+  capability_id_l1: BC-300
+  capability_name: Workforce Planning Management
+  confidence: 0.75
+  evidence: GET /{domain}/v1/plans 'List hiring plans'; 'List departments'; 'List divisions' on a 'headcount
+    management and planning platform'
+  reason: The discovery endpoints expose hiring plans and the org structure (departments/divisions) used
+    for headcount planning, which is workforce supply/demand planning rather than recruiting execution.
+- tag: Scenario
+  spec_file: teamohana-scenario-api-openapi.yml
+  capability_id: BC-300.50
+  capability_id_l1: BC-300
+  capability_name: Workforce Planning Management
+  confidence: 0.7
+  evidence: GET /{domain}/v1/scenarios/{id}/export 'Fetch headcount and employees within the scenario'
+  reason: Scenarios here are headcount planning scenarios exporting headcount and employees, i.e. workforce
+    supply/demand scenario planning on a people-budget platform.

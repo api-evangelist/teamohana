@@ -132,6 +132,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/teamohana-capability-edges.yml
+  name: TeamOhana Business Capability Map
 - type: OpenAPI
   url: openapi/_original/teamohana-openapi-original.json
 - type: Authentication
