@@ -1692,3 +1692,9 @@ components:
       scheme: bearer
 x-id:
 - reitit.openapi/default
+x-provenance:
+  method: harvested
+  publisher: TeamOhana
+  source: https://api.teamohana.us/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
